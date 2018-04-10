@@ -6,7 +6,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 use buff\actions\HomeAction;
 
 require 'vendor/autoload.php';
-//require 'actions/HomeAction.php';
 
 $cof = require 'config/main.php';
 $app = new \Slim\App($cof);
