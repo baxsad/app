@@ -32,7 +32,7 @@ $app->get('/', function (Request $req,  Response $res, $args = []) {
         'Content-Type',
         'application/json'
     )->write(
-    	'{"status": 1,"msg": "success","data": {}}'
+    	'Hello 胖虎！'
     );
 });
 
