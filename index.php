@@ -8,12 +8,21 @@ require 'vendor/autoload.php';
 
 $cof = require 'config/main.php';
 $app = new \Slim\App(['settings' => $cof]);
+
 $container = $app->getContainer();
 $container['logger'] = function($c) {
     $logger = new \Monolog\Logger('my_logger');
     $file_handler = new \Monolog\Handler\StreamHandler('../logs/app.log');
     $logger->pushHandler($file_handler);
     return $logger;
+};
+$container['notFoundHandler'] = function ($c) {
+    return function ($request, $response) use ($c) {
+        return $c['response']
+            ->withStatus(404)
+            ->withHeader('Content-Type', 'text/html')
+            ->write('Page not found');
+    };
 };
 
 $app->get('/', function (Request $req,  Response $res, $args = []) {
