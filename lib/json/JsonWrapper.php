@@ -12,7 +12,6 @@
 */
 
 namespace buff\lib;
-use Slim;
 
 class JsonWrapper extends \Slim\View 
 {
