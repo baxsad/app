@@ -3,7 +3,7 @@
 
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use buff\actions\HomeAction;
+use buff\actions;
 
 require 'vendor/autoload.php';
 
@@ -26,6 +26,6 @@ $container['notFoundHandler'] = function ($c) {
     };
 };
 
-$app->get('/', HomeAction::class);
+$app->get('/', \HomeAction::class);
 
 $app->run();
