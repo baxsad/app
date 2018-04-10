@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 require 'vendor/autoload.php';
 
 $cof = require 'config/main.php';
-$app = new \Slim\App(['settings' => $cof]);
+$app = new \Slim\App($cof);
 
 $container = $app->getContainer();
 $container['logger'] = function($c) {
@@ -21,7 +21,7 @@ $container['notFoundHandler'] = function ($c) {
         return $c['response']
             ->withStatus(404)
             ->withHeader('Content-Type', 'text/html')
-            ->write('<center><h1 style="font-size: 10em">:) 404</h1></center>');
+            ->write('<center><h1 style="font-size: 10em">404</h1></center>');
     };
 };
 
