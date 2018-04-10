@@ -8,6 +8,8 @@
 require 'vendor/autoload.php';
 require 'lib/json/JsonMiddleware.php';
 require 'lib/json/JsonWrapper.php';
+
+use buff\lib;
 /**
  * Step 2: Instantiate a Slim application
  *
