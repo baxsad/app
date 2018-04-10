@@ -6,6 +6,8 @@
  * PSR-4 autoloader.
  */
 require 'vendor/autoload.php';
+require 'lib/json/JsonMiddleware.php';
+require 'lib/json/JsonWrapper.php';
 /**
  * Step 2: Instantiate a Slim application
  *
@@ -15,6 +17,8 @@ require 'vendor/autoload.php';
  * of setting names and values into the application constructor.
  */
 $app = new Slim\App();
+$app->view(new JsonWrappe());
+$app->add(new JsonMiddleware());
 /**
  * Step 3: Define the Slim application routes
  *
@@ -23,14 +27,12 @@ $app = new Slim\App();
  * argument for `Slim::get`, `Slim::post`, `Slim::put`, `Slim::patch`, and `Slim::delete`
  * is an anonymous function.
  */
-$app->get('/', function ($request, $response, $args) {
-    $response->write("Welcome to Slim!");
-    return $response;
+$app->get('/', function() use ($app) {
+    $app->render(200,array(
+        'msg' => 'welcome to my API!',
+    ));
 });
-$app->get('/hello[/{name}]', function ($request, $response, $args) {
-    $response->write("Hello, " . $args['name']);
-    return $response;
-})->setArgument('name', 'World!');
+
 /**
  * Step 4: Run the Slim application
  *
