@@ -17,6 +17,7 @@ $container['logger'] = function($c) {
 };
 
 $app->get('/', function (Request $req,  Response $res, $args = []) {
+	$this->logger->addInfo("Ticket list");
     return $res->withStatus(200)->write('Hello World!');
 });
 $app->run();
