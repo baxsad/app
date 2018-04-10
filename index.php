@@ -26,6 +26,6 @@ $container['notFoundHandler'] = function ($c) {
     };
 };
 
-$app->get('/', \HomeAction::class);
+$app->get('/', HomeAction::class);
 
 $app->run();
