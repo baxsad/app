@@ -4,6 +4,8 @@ use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface;
 
+namespace buff\action
+
 class HomeAction
 {
    protected $container;
