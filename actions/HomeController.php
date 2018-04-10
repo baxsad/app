@@ -1,12 +1,12 @@
 <?php
 
-namespace buff\actions;
+namespace buff\controllers;
 
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface;
 
-class HomeAction
+class HomeController
 {
    protected $container;
 
@@ -14,7 +14,7 @@ class HomeAction
        $this->container = $container;
    }
 
-   public function __invoke(Request $req,  Response $res, $args = []) {
+   public function home(Request $req,  Response $res, $args = []) {
         return $res
             ->withStatus(200)
             ->withHeader('Content-Type','application/json')

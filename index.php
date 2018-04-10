@@ -3,21 +3,21 @@
 
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use buff\actions\HomeAction;
+use buff\controllers\HomeController;
+use buff\controllers\UserController;
 
 require 'vendor/autoload.php';
 
 $cof = require 'config/main.php';
 $app = new \Slim\App($cof);
-
-$container = $app->getContainer();
-$container['logger'] = function($c) {
+$con = $app->getContainer();
+$con['logger'] = function($c) {
     $logger = new \Monolog\Logger('my_logger');
     $file_handler = new \Monolog\Handler\StreamHandler('../logs/app.log');
     $logger->pushHandler($file_handler);
     return $logger;
 };
-$container['notFoundHandler'] = function ($c) {
+$con['notFoundHandler'] = function ($c) {
     return function ($request, $response) use ($c) {
         return $c['response']
             ->withStatus(404)
@@ -26,6 +26,7 @@ $container['notFoundHandler'] = function ($c) {
     };
 };
 
-$app->get('/', HomeAction::class);
+$app->get('/', HomeController::class . ':home');
+$app->get('/user', UserController::class . ':users');
 
 $app->run();
