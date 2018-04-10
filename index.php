@@ -3,7 +3,7 @@
 
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use buff\actions;
+use buff\actions\HomeAction;
 
 require 'vendor/autoload.php';
 
