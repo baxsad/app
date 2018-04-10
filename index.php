@@ -16,24 +16,13 @@ $container['logger'] = function($c) {
     $logger->pushHandler($file_handler);
     return $logger;
 };
-$container['notFoundHandler'] = function ($c) {
-    return function ($request, $response) use ($c) {
-        return $c['response']
-            ->withStatus(404)
-            ->withHeader('Content-Type', 'text/html')
-            ->write('<center><h1 style="font-size: 10em">404</h1></center>');
-    };
-};
+$container['notFoundHandler'] = \NotFoundAction::class;
 
 $app->get('/', function (Request $req,  Response $res, $args = []) {
-    return $res->withStatus(
-    	200
-    )->withHeader(
-        'Content-Type',
-        'application/json'
-    )->write(
-    	'Hello 胖虎！'
-    );
+    return $res
+        ->withStatus(200)
+        ->withHeader('Content-Type','application/json')
+        ->write('Hello 胖虎！');
 });
 
 $app->run();
