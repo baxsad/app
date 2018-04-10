@@ -21,7 +21,7 @@ $container['notFoundHandler'] = function ($c) {
         return $c['response']
             ->withStatus(404)
             ->withHeader('Content-Type', 'text/html')
-            ->write('<h1>404</h1>');
+            ->write('<center><h1>404</h1></center>');
     };
 };
 
