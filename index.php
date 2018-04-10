@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 require 'vendor/autoload.php';
 
-$cof = require 'config/main.php'
+$cof = require 'config/main.php';
 $app = new \Slim\App(['settings' => $cof]);
 $container = $app->getContainer();
 $container['logger'] = function($c) {
