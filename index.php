@@ -17,7 +17,14 @@ $container['logger'] = function($c) {
 };
 
 $app->get('/', function (Request $req,  Response $res, $args = []) {
-    return $res->withStatus(200)->write('Hello World!');
+    return $res->withStatus(
+    	200
+    )->withHeader(
+        'Content-Type',
+        'application/json'
+    )->withBody(
+    	['msg' => 'Hello World!']
+    );
 });
 
 $app->run();
