@@ -3,9 +3,9 @@
 
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use buff\action;
 
 require 'vendor/autoload.php';
+require 'actions/NotFoundAction.php';
 
 $cof = require 'config/main.php';
 $app = new \Slim\App($cof);
