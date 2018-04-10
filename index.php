@@ -5,7 +5,7 @@ use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 require 'vendor/autoload.php';
-require 'actions/HomeAction.php';
+//require 'actions/HomeAction.php';
 
 $cof = require 'config/main.php';
 $app = new \Slim\App($cof);
