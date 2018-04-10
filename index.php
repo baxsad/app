@@ -22,7 +22,7 @@ $app->get('/', function (Request $req,  Response $res, $args = []) {
     )->withHeader(
         'Content-Type',
         'application/json'
-    )->withBody(
+    )->write(
     	['msg' => 'Hello World!']
     );
 });
