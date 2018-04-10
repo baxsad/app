@@ -5,6 +5,8 @@
  * If you are not using Composer, you need to load Slim Framework with your own
  * PSR-4 autoloader.
  */
+use Psr\Http\Message\RequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
 require 'vendor/autoload.php';
 /**
  * Step 2: Instantiate a Slim application
@@ -24,7 +26,7 @@ $app = new \Slim\App();
  * is an anonymous function.
  */
 $app->get('/', function (Request $req,  Response $res, $args = []) {
-    return $res->withStatus(400)->write('Bad Request');
+    return $res->withStatus(200)->write('Hello World!');
 });
 
 /**
