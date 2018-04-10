@@ -23,7 +23,7 @@ $app->get('/', function (Request $req,  Response $res, $args = []) {
         'Content-Type',
         'application/json'
     )->write(
-    	'Hello World!'
+    	'{"status": 1,"msg": "success","data": {}}'
     );
 });
 
