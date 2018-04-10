@@ -1,8 +1,8 @@
 <?php
 
-namespace buff\action
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Container\ContainerInterface;
 
 class NotFoundAction
 {
