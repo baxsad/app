@@ -8,10 +8,12 @@ $app = new \Slim\App($cof);
 
 /**
  * Register dependencies
+ * Register handlers
  * Register middleware
  * Register routes
  */
 require __DIR__ . '/classes/slim/Dependencies.php';
+require __DIR__ . '/classes/slim/Handlers.php';
 require __DIR__ . '/classes/slim/Middleware.php';
 require __DIR__ . '/classes/slim/Routes.php';
 
