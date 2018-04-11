@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('PRC');
 require __DIR__ . '/vendor/autoload.php';
 
 // OW!~
