@@ -31,10 +31,11 @@ $container['db'] = function ($c) {
  * Slim 404 Page
  */
 $container['notFoundHandler'] = function ($c) {
-    return function ($request, $response) use ($c) {
-        return $c['response']
-            ->withStatus(404)
-            ->withHeader('Content-Type', 'text/html')
-            ->write('<center><h1 style="font-size: 10em">404</h1></center>');
-    };
+    // return function ($request, $response) use ($c) {
+    //     return $c['response']
+    //         ->withStatus(404)
+    //         ->withHeader('Content-Type', 'text/html')
+    //         ->write('<center><h1 style="font-size: 10em">404</h1></center>');
+    // };
+    return new NotFoundHandler($c);
 };
