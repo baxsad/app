@@ -23,8 +23,10 @@ class UserController
    public function get(Request $req,  Response $res, $args = []) {
         $uid = $req->getAttribute('id');
         $user = $this->table->where('uid','=',$uid)->get();
-        $userModel = new UserModel($user);
-        $this->responseService->withData($userModel)->write();
+        return $res
+            ->withStatus(200)
+            ->withHeader('Content-Type','application/json')
+            ->write(json_encode($user));
    }
 
    public function create(Request $req,  Response $res, $args = []) {
