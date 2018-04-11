@@ -7,10 +7,14 @@ return array(
 
 	//db
 	'db' => array(
-		'host'   => '',
-		'user'   => '',
-		'pass'   => '',
-		'dbname' => '',
+		'driver'    => 'mysql',
+        'host'      => 'localhost',
+        'database'  => 'oye_moe',
+        'username'  => 'root',
+        'password'  => 'Hyswr0.0',
+        'charset'   => 'utf8',
+        'collation' => 'utf8_unicode_ci',
+        'prefix'    => '',
 	),
 
 	//logger
