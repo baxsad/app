@@ -2,8 +2,8 @@
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use buff\controllers\HomeController;
-use buff\controllers\UserController;
+use buff\controllers\home\HomeController;
+use buff\controllers\user\UserController;
 
 /**
  * Slim Home
