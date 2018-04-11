@@ -12,11 +12,11 @@ class UserModel extends ResponseModel implements ResponseModelInterface
 	private $username;
 	private $avatar;
 
-	public function __construct(array $dao)
+	public function __construct(Object $dao)
 	{
-		$this->uid        = (int)    $dao['uid'];
-		$this->username   = (string) $dao['username'];
-		$this->avatar     = (string) $dao['avatar'];
+		$this->uid        = (int)    $dao->uid;
+		$this->username   = (string) $dao->username;
+		$this->avatar     = (string) $dao->avatar;
 	}
 
 	public function getUID(): int
