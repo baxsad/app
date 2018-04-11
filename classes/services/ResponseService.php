@@ -64,9 +64,7 @@ class ResponseService
 
 	public function write()
 	{
-		echo $this->getResponse();
-		
-		return $this;
+		return $this->getResponse();
 	}
 
 	private function addHeaders()

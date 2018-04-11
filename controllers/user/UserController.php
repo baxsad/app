@@ -36,7 +36,9 @@ class UserController
           }
         }
 
-        $this->responseService->write();
+        return $res
+            ->withStatus(200)
+            ->write($this->responseService->write());
    }
 
    public function create(Request $req,  Response $res, $args = []) {
