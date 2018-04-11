@@ -2,8 +2,6 @@
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use Psr\Container\ContainerInterface;
-use buff\classes\handlers\NotFoundHandler;
 
 /**
  * Slim Container
@@ -31,12 +29,11 @@ $container['db'] = function ($c) {
 /**
  * Slim 404 Page
  */
-$container['notFoundHandler'] = function (ContainerInterface $container) {
-    // return function ($request, $response) use ($c) {
-    //     return $c['response']
-    //         ->withStatus(404)
-    //         ->withHeader('Content-Type', 'text/html')
-    //         ->write('<center><h1 style="font-size: 10em">404</h1></center>');
-    // };
-    return new NotFoundHandler($container);
+$container['notFoundHandler'] = function ($c) {
+    return function ($request, $response) use ($c) {
+        return $c['response']
+            ->withStatus(404)
+            ->withHeader('Content-Type', 'text/html')
+            ->write('<center><h1 style="font-size: 10em">404</h1></center>');
+    };
 };
