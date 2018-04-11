@@ -6,7 +6,7 @@ use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface;
 use Illuminate\Database\Query\Builder;
-use buff\classes\response\ResponseService;
+use buff\classes\services\ResponseService;
 
 class UserController
 {
