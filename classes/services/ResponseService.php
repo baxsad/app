@@ -6,17 +6,16 @@ use buff\classes\response\ResponseModelInterface;
 
 class ResponseService
 {
-    private $status = 1;
+    private $success = true;
     private $data = [];
     private $errorCode = 0;
     private $errorMessage = '';
     private $responseData = [];
-    private $headers = [];
-    private $message;
+    private $message = 'success!';
 
-    public function withStatusCode($statusCode)
+    public function withSuccess($success)
 	{
-		$this->statusCode = $statusCode;
+		$this->success = $success;
 
 		return $this;
 	}
@@ -55,6 +54,7 @@ class ResponseService
 		$this->addHeaders();
 		
 		$this->responseData['data']    = $this->data;
+		$this->responseData['data']    = $this->data;
 		$this->responseData['message'] = (string) $this->message;
 		$this->responseData['error']['errorCode'] = $this->errorCode;
 		$this->responseData['error']['errorMessage'] = $this->errorMessage;
@@ -65,13 +65,6 @@ class ResponseService
 	public function write()
 	{
 		return $this->getResponse();
-	}
-
-	private function addHeaders()
-	{
-		foreach ($this->headers as $headerName => $headerValue) {
-			header($headerName . ': ' . $headerValue);
-		}
 	}
 
 	public function withMessage($message)
