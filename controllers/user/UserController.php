@@ -21,12 +21,6 @@ class UserController
    }
 
    public function get(Request $req,  Response $res, $args = []) {
-        $uid = $req->getAttribute('id');
-        $user = $this->table->where('uid','=',$uid)->get();
-        // $userModel = new UserModel([$users]);
-        // $this->responseService->withData($userModel)->write();
-        $u = (array)$user[0];
-
         return $res
             ->withStatus(200)
             ->withHeader('Content-Type','application/json')
