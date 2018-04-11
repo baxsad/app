@@ -24,7 +24,7 @@ class UserController
         return $res
             ->withStatus(200)
             ->withHeader('Content-Type','application/json')
-            ->write($req->getQuery());
+            ->write($req->getQueryParam('uid',$default = ''));
    }
 
    public function create(Request $req,  Response $res, $args = []) {
