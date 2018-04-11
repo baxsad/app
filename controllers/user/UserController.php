@@ -21,13 +21,13 @@ class UserController
    }
 
    public function get(Request $req,  Response $res, $args = []) {
-        $uid = $req->getQueryParam('uid',$default = '')->first();
+        $uid = $req->getQueryParam('uid',$default = '');
         if (empty($uid)) {
           $this->responseService->withFailure();
           $this->responseService->withErrorCode(-1);
           $this->responseService->withErrorMessage('Param uid not be null!');
         } else {
-          $user = $this->table->where('uid','=',$uid)->find();
+          $user = $this->table->where('uid','=',$uid)->get()->first();
           if (empty($user)) {
             $this->responseService->withFailure();
             $this->responseService->withErrorCode(-1);
