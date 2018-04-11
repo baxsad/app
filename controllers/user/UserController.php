@@ -27,11 +27,11 @@ class UserController
           $this->responseService->withErrorMessage('Param uid not be null!');
         } else {
           $user = $this->table->where('uid','=',$uid)->get();
-          if (empty($user)) {
+          if (empty($user) || sizeof($user) == 0) {
             $this->responseService->withErrorCode(-1);
             $this->responseService->withErrorMessage('User not found!');
           } else {
-            $userModel = new UserModel($user);
+            $userModel = new UserModel($user[0]);
             $this->responseService->withData($userModel);
           }
         }
