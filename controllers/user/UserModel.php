@@ -2,6 +2,7 @@
 
 namespace buff\controllers\user;
 
+use buff\classes\model\ModelInterface;
 use buff\classes\response\ResponseModel;
 use buff\classes\response\ResponseModelInterface;
 

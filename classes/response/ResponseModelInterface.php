@@ -2,7 +2,7 @@
 
 namespace buff\classes\response;
 
-use buff\class\model\ModelInterface;
+use buff\classes\model\ModelInterface;
 
 interface ResponseModelInterface extends ModelInterface
 {
