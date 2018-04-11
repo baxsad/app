@@ -30,7 +30,7 @@ class UserController
         return $res
             ->withStatus(200)
             ->withHeader('Content-Type','application/json')
-            ->write(var_dump($u));
+            ->write(var_dump($args));
    }
 
    public function create(Request $req,  Response $res, $args = []) {
