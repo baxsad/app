@@ -15,7 +15,7 @@ $app->get('/', HomeController::class . ':home');
 $app->group('/api', function () use ($app) {
 
 	// user
-    $app->group('/users', function () use ($app) {
+    $app->group('/members', function () use ($app) {
         $app->get('[/{id}]', UserController::class . ':get');
         $app->post('[/]', UserController::class . ':create');
         $app->put('/:id', UserController::class . ':update');
