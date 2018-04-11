@@ -75,8 +75,8 @@ class ResponseService
 		$this->responseData['data']    = $this->data;
 		$this->responseData['error']['errorCode'] = $this->errorCode;
 		$this->responseData['error']['errorMessage'] = $this->errorMessage;
-		$this->responseData['time']    = time();
-		
+		$this->responseData['date']    = time();
+
 		return json_encode($this->responseData, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 	}
 
