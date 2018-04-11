@@ -18,6 +18,6 @@ class HomeController
         return $res
             ->withStatus(200)
             ->withHeader('Content-Type','application/json')
-            ->write('Hello 胖虎！');
+            ->write('Hello Oye！');
    }
 }
