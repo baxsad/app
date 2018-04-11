@@ -22,7 +22,7 @@ class UserController
 
    public function get(Request $req,  Response $res, $args = []) {
         $users = $this->table->get();
-        $userModel = new UserModel($users);
+        $userModel = new UserModel([$users]);
         $this->responseService->withData($userModel)->write();
    }
 
