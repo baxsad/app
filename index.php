@@ -4,7 +4,7 @@ require __DIR__ . '/vendor/autoload.php';
 // OW!~
 // Instantiate the app
 $cof = require __DIR__ . '/config/main.php';
-$app = new \Slim\App($cof);
+$app = new \Slim\App(['settings' => $cof]);
 
 /**
  * Register dependencies
