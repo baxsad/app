@@ -6,7 +6,7 @@ use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface;
 
-class NotFoundHandler
+class NotAllowedHandler
 {
     protected $container;
 
@@ -16,8 +16,8 @@ class NotFoundHandler
 
     public function __invoke(Request $request, Response $response) {
         return $response
-            ->withStatus(404)
+            ->withStatus(405)
             ->withHeader('Content-Type', 'text/html')
-            ->write('Not Found!');
+            ->write('Method Not Allowed!');
     }
 }
