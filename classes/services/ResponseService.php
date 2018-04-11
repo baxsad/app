@@ -6,7 +6,7 @@ use buff\classes\response\ResponseModelInterface;
 
 class ResponseService
 {
-    private $statusCode = 200;
+    private $status = 1;
     private $data = [];
     private $errorCode = 0;
     private $errorMessage = '';
