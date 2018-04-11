@@ -13,9 +13,16 @@ class ResponseService
     private $responseData = [];
     private $message = 'success!';
 
-    public function withSuccess($success)
+    public function withSuccess()
 	{
-		$this->success = $success;
+		$this->success = true;
+
+		return $this;
+	}
+
+	public function withFailure()
+	{
+		$this->success = false;
 
 		return $this;
 	}
