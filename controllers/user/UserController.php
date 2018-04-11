@@ -25,10 +25,11 @@ class UserController
         $user = $this->table->where('uid','=',$uid)->get();
         // $userModel = new UserModel([$users]);
         // $this->responseService->withData($userModel)->write();
+        $u = $user->items[0];
         return $res
             ->withStatus(200)
             ->withHeader('Content-Type','application/json')
-            ->write(var_dump($user));
+            ->write(var_dump($u));
    }
 
    public function create(Request $req,  Response $res, $args = []) {
