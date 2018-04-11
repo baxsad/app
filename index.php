@@ -1,10 +1,19 @@
 <?php
+require __DIR__ . '/vendor/autoload.php';
 
 // OW!~
-require __DIR__ . '/vendor/autoload.php';
+// Instantiate the app
 $cof = require __DIR__ . '/config/main.php';
 $app = new \Slim\App($cof);
-require __DIR__ . '/classes/app/Dependencies.php';
-require __DIR__ . '/classes/app/Middleware.php';
-require __DIR__ . '/classes/app/Routes.php';
+
+/**
+ * Register dependencies
+ * Register middleware
+ * Register routes
+ */
+require __DIR__ . '/classes/slim/Dependencies.php';
+require __DIR__ . '/classes/slim/Middleware.php';
+require __DIR__ . '/classes/slim/Routes.php';
+
+// run app
 $app->run();
