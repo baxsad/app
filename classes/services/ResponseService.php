@@ -58,14 +58,11 @@ class ResponseService
 
 	public function getResponse()
 	{
-		$this->addHeaders();
-		
-		$this->responseData['data']    = $this->data;
-		$this->responseData['data']    = $this->data;
+		$this->responseData['success'] = $this->success;
 		$this->responseData['message'] = (string) $this->message;
+		$this->responseData['data']    = $this->data;
 		$this->responseData['error']['errorCode'] = $this->errorCode;
 		$this->responseData['error']['errorMessage'] = $this->errorMessage;
-		if ($this->statusCode) http_response_code($this->statusCode);
 		return json_encode($this->responseData, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 	}
 
