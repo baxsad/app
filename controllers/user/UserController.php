@@ -25,7 +25,8 @@ class UserController
         $user = $this->table->where('uid','=',$uid)->get();
         // $userModel = new UserModel([$users]);
         // $this->responseService->withData($userModel)->write();
-        $u = $user[0];
+        $u = (array)$user[0];
+
         return $res
             ->withStatus(200)
             ->withHeader('Content-Type','application/json')
