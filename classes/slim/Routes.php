@@ -13,5 +13,12 @@ $app->get('/', HomeController::class . ':home');
  * Slim API
  */
 $app->group('/api', function () use ($app) {
-    $app->get('/user', UserController::class . ':users');
+
+	// user
+    $app->group('/users', function () use ($app) {
+        $app->get('[/{id}]', UserController::class . ':get');
+        $app->post('[/]', UserController::class . ':create');
+        $app->put('/:id', UserController::class . ':update');
+        $app->delete('/:id', UserController::class . ':delete');
+    });
 });
