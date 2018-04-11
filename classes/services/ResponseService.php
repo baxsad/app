@@ -11,7 +11,7 @@ class ResponseService
     private $errorCode = 0;
     private $errorMessage = '';
     private $responseData = [];
-    private $message = 'success!';
+    private $message;
 
     public function withSuccess()
 	{
@@ -56,16 +56,6 @@ class ResponseService
 		return $this;
 	}
 
-	public function getResponse()
-	{
-		$this->responseData['success'] = $this->success;
-		$this->responseData['message'] = (string) $this->message;
-		$this->responseData['data']    = $this->data;
-		$this->responseData['error']['errorCode'] = $this->errorCode;
-		$this->responseData['error']['errorMessage'] = $this->errorMessage;
-		return json_encode($this->responseData, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
-	}
-
 	public function write()
 	{
 		return $this->getResponse();
@@ -76,5 +66,24 @@ class ResponseService
 		$this->message = (string) $message;
 		
 		return $this;
+	}
+
+	public function getResponse()
+	{
+		$this->responseData['success'] = $this->success;
+		$this->responseData['message'] = $this->getMessage();
+		$this->responseData['data']    = $this->data;
+		$this->responseData['error']['errorCode'] = $this->errorCode;
+		$this->responseData['error']['errorMessage'] = $this->errorMessage;
+		return json_encode($this->responseData, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+	}
+
+	public function getMessage(): string
+	{
+        if (empty($this->message)) {
+        	return $this->success ? 'success!' : 'failure!';
+        }
+
+        return $this->message;
 	}
 }
