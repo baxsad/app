@@ -21,8 +21,9 @@ class UserController
    }
 
    public function get(Request $req,  Response $res, $args = []) {
-        $users = $this->table->get();
-        $userModel = new UserModel([$users]);
+        $uid = $req->getAttribute('id');
+        $user = $this->table->where('uid','=',$uid)->get();
+        $userModel = new UserModel($user);
         $this->responseService->withData($userModel)->write();
    }
 
