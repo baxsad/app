@@ -2,7 +2,7 @@
 
 return array(
 	//app
-	'displayErrorDetails'    => true,
+	'displayErrorDetails'    => false,
 	'addContentLengthHeader' => false,
 
 	//db
