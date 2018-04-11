@@ -18,6 +18,6 @@ class NotFoundHandler
         return $response
             ->withStatus(404)
             ->withHeader('Content-Type', 'text/html')
-            ->write('<center><h1 style="font-size: 10em">404</h1></center>');
+            ->write('<center><h1 style="font-size: 10em">~404~</h1></center>');
     }
 }
