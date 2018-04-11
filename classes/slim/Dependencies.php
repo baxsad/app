@@ -37,5 +37,5 @@ $container['notFoundHandler'] = function ($c) {
     //         ->withHeader('Content-Type', 'text/html')
     //         ->write('<center><h1 style="font-size: 10em">404</h1></center>');
     // };
-    return NotFoundHandler();
+    return new NotFoundHandler();
 };
