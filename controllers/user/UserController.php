@@ -6,7 +6,7 @@ use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface;
 use Illuminate\Database\Query\Builder;
-use Illuminate\Database\Capsule\Manager as Capsule;
+use Illuminate\Database\Capsule\Manager;
 use Buff\classes\services\ResponseService;
 use Buff\lib\data\StringEx;
 
@@ -14,9 +14,11 @@ class UserController
 {
    protected $container;
    private $responseService;
+   private $DB;
 
    public function __construct(ContainerInterface $container) {
        $this->container = $container;
+       $this->DB = $this->container->get('db');
        $this->responseService = new ResponseService();
    }
 
@@ -29,7 +31,7 @@ class UserController
             $this->responseService->withErrorCode(5001);
         } else {
             $start = microtime(true);
-            $user  = Capsule::table('user')
+            $user  = $this->DB->table('user')
                 ->where('uid',$uid)
                 ->orWhere('account',$account)
                 ->get()
