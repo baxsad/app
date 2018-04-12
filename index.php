@@ -1,10 +1,11 @@
 <?php
 date_default_timezone_set('PRC');
 require __DIR__ . '/vendor/autoload.php';
-include __DIR__ . '/lib/Buff.php';
+require __DIR__ . '/lib/Buff.php';
 
 // OW!~
 // Buff registry
+var_dump(__DIR__ . '/lib/Buff.php');die;
 Buff::registry();
 // Instantiate the app
 $cof = Buff::$base->config->loadConfig('main');
