@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface;
 use Illuminate\Database\Query\Builder;
 use Buff\classes\services\ResponseService;
-use Buff\lib\data\String;
+use Buff\lib\data\StringEx;
 
 class UserController
 {
