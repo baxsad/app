@@ -1,10 +1,10 @@
 <?php
 
-namespace buff\controllers\user;
+namespace Buff\controllers\user;
 
-use buff\classes\model\ModelInterface;
-use buff\classes\response\ResponseModel;
-use buff\classes\response\ResponseModelInterface;
+use Buff\classes\model\ModelInterface;
+use Buff\classes\response\ResponseModel;
+use Buff\classes\response\ResponseModelInterface;
 
 class UserModel extends ResponseModel implements ResponseModelInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace buff\classes\response;
+namespace Buff\classes\response;
 
 abstract class ResponseModel implements ResponseModelInterface
 {

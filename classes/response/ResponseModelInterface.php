@@ -1,8 +1,8 @@
 <?php
 
-namespace buff\classes\response;
+namespace Buff\classes\response;
 
-use buff\classes\model\ModelInterface;
+use Buff\classes\model\ModelInterface;
 
 interface ResponseModelInterface extends ModelInterface
 {

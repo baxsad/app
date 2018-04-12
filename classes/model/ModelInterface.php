@@ -1,6 +1,6 @@
 <?php
 
-namespace buff\classes\model;
+namespace Buff\classes\model;
 
 interface ModelInterface
 {

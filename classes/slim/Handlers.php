@@ -2,8 +2,8 @@
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use buff\classes\handlers\NotFoundHandler;
-use buff\classes\handlers\NotAllowedHandler;
+use Buff\classes\handlers\NotFoundHandler;
+use Buff\classes\handlers\NotAllowedHandler;
 
 /**
  * Slim Container

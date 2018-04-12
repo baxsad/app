@@ -1,9 +1,9 @@
 <?php
 
-namespace buff\classes\services;
+namespace Buff\classes\services;
 
-use buff\classes\response\ResponseModelInterface;
-use buff;
+use Buff\classes\response\ResponseModelInterface;
+use Buff;
 
 class ResponseService
 {

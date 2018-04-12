@@ -1,12 +1,12 @@
 <?php
 
-namespace buff\controllers\user;
+namespace Buff\controllers\user;
 
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface;
 use Illuminate\Database\Query\Builder;
-use buff\classes\services\ResponseService;
+use Buff\classes\services\ResponseService;
 
 class UserController
 {

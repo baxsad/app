@@ -1,6 +1,6 @@
 <?php
 
-namespace buff\classes\handlers;
+namespace Buff\classes\handlers;
 
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;

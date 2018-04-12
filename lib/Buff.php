@@ -1,8 +1,8 @@
 <?php
 
-namespace buff;
+namespace Buff;
 
-use buff\lib\config\Config;
+use Buff\lib\config\Config;
 
 class Buff
 {
