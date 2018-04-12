@@ -5,7 +5,6 @@ require __DIR__ . '/lib/Buff.php';
 
 // OW!~
 // Buff registry
-var_dump(__DIR__ . '/lib/Buff.php');die;
 Buff::registry();
 // Instantiate the app
 $cof = Buff::$base->config->loadConfig('main');
