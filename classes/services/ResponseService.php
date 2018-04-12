@@ -84,7 +84,7 @@ class ResponseService
 		$this->responseData['error']['errorCode'] = $this->errorCode;
 		$this->responseData['error']['errorMessage'] = $this->errorMessage;
 		$this->responseData['date']    = time();
-		if (empty($this->expend)) {
+		if (!empty($this->expend)) {
 			$this->responseData['expend']  = $this->expend;
 		}
 
