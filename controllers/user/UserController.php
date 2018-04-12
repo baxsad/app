@@ -25,16 +25,14 @@ class UserController
         $uid = $req->getQueryParam('uid',$default = '');
         if (empty($uid)) {
           $this->responseService->withFailure();
-          $this->responseService->withErrorCode(-1);
-          $this->responseService->withErrorMessage('missing parameter!');
+          $this->responseService->withErrorCode(5001);
         } else {
           $start = microtime(true);
           $user = $this->table->where('uid','=',$uid)->get()->first();
           $expend = (microtime(true)-$start)*1000;
           if (empty($user)) {
             $this->responseService->withFailure();
-            $this->responseService->withErrorCode(-1);
-            $this->responseService->withErrorMessage('not found!');
+            $this->responseService->withErrorCode(6001);
           } else {
             $userModel = new UserModel($user);
             $this->responseService->withSuccess();

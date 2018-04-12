@@ -9,10 +9,16 @@ class ResponseService
     private $success = true;
     private $data = [];
     private $errorCode = 0;
-    private $errorMessage = '';
+    private $errorMessage;
     private $responseData = [];
     private $message;
     private $expend;
+
+    private $errorConfig;
+
+    public function __construct() {
+       $this->errorConfig = require __DIR__ . '../config/error.php';;
+    }
 
     public function withSuccess()
 	{
@@ -82,7 +88,7 @@ class ResponseService
 		$this->responseData['message'] = $this->getMessage();
 		$this->responseData['data']    = $this->data;
 		$this->responseData['error']['errorCode'] = $this->errorCode;
-		$this->responseData['error']['errorMessage'] = $this->errorMessage;
+		$this->responseData['error']['errorMessage'] = $this->getErrorMessage();
 		$this->responseData['date']    = time();
 		if (!empty($this->expend)) {
 			$this->responseData['expend']  = $this->expend;
@@ -98,5 +104,15 @@ class ResponseService
         }
 
         return $this->message;
+	}
+
+	public function getErrorMessage(): string
+	{
+        if (empty($this->errorMessage)) {
+        	$error = $this->errorConfig[$this->errorCode];
+        	return empty($error) ? 'unknow error' : $error;
+        }
+
+        return $this->errorMessage;
 	}
 }
