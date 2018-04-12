@@ -5,9 +5,9 @@ require __DIR__ . '/lib/USApplication.php';
 
 // OW!~
 // APP registry
-USApplication::registry();
+\USApplication::registry();
 // Instantiate the app
-$cof = USApplication::$base->config->loadConfig('main');
+$cof = \USApplication::$base->config->loadConfig('main');
 $app = new \Slim\App(['settings' => $cof]);
 /**
  * Register dependencies
