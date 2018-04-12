@@ -33,8 +33,13 @@ class Config
         return $this->caches[$module];
     }
 
-    public function get($module='main')
+    public function get($key, $module='main')
     {
-        return $this->loadConfig($module);
+        $config = $this->loadConfig($module);
+        if (isset($config[$key])) {
+            return $config[$key];
+        } else {
+            return null;
+        }
     }
 }
