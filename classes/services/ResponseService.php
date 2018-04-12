@@ -17,7 +17,7 @@ class ResponseService
     private $errorConfig;
 
     public function __construct() {
-       $this->errorConfig = require __DIR__ . '/../config/error.php';;
+       $this->errorConfig = require __DIR__ . '/config/error.php';;
     }
 
     public function withSuccess()
