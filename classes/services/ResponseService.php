@@ -12,6 +12,7 @@ class ResponseService
     private $errorMessage = '';
     private $responseData = [];
     private $message;
+    private $expend;
 
     public function withSuccess()
 	{
@@ -56,16 +57,23 @@ class ResponseService
 		return $this;
 	}
 
-	public function write()
-	{
-		return $this->getResponse();
-	}
-
 	public function withMessage($message)
 	{
 		$this->message = (string) $message;
 		
 		return $this;
+	}
+
+	public function withExpend($expend)
+	{
+		$this->expend = (string) $expend . 'ms';
+		
+		return $this;
+	}
+
+	public function write()
+	{
+		return $this->getResponse();
 	}
 
 	public function getResponse()
@@ -76,6 +84,9 @@ class ResponseService
 		$this->responseData['error']['errorCode'] = $this->errorCode;
 		$this->responseData['error']['errorMessage'] = $this->errorMessage;
 		$this->responseData['date']    = time();
+		if (empty($this->expend)) {
+			$this->responseData['expend']  = $this->expend;
+		}
 
 		return json_encode($this->responseData, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 	}

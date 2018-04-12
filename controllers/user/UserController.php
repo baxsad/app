@@ -21,13 +21,16 @@ class UserController
    }
 
    public function get(Request $req,  Response $res, $args = []) {
+
         $uid = $req->getQueryParam('uid',$default = '');
         if (empty($uid)) {
           $this->responseService->withFailure();
           $this->responseService->withErrorCode(-1);
           $this->responseService->withErrorMessage('Param uid not be null!');
         } else {
+          $start = microtime(true);
           $user = $this->table->where('uid','=',$uid)->get()->first();
+          $expend = (microtime(true)-$start)*1000;
           if (empty($user)) {
             $this->responseService->withFailure();
             $this->responseService->withErrorCode(-1);
@@ -36,6 +39,7 @@ class UserController
             $userModel = new UserModel($user);
             $this->responseService->withSuccess();
             $this->responseService->withData($userModel);
+            $this->responseService->withExpend($expend);
           }
         }
 
