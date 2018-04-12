@@ -3,6 +3,7 @@
 namespace buff\classes\services;
 
 use buff\classes\response\ResponseModelInterface;
+use buff;
 
 class ResponseService
 {
@@ -13,13 +14,6 @@ class ResponseService
     private $responseData = [];
     private $message;
     private $expend;
-
-    private $errorConfig;
-
-    public function __construct() {
-        $path = dirname(dirname(__DIR__)).'/config/error.php';
-        $this->errorConfig = is_readable($path) ? require($path) : [];
-    }
 
     public function withSuccess()
 	{
@@ -110,7 +104,7 @@ class ResponseService
 	public function getErrorMessage(): string
 	{
         if (empty($this->errorMessage)) {
-        	$error = $this->errorConfig[$this->errorCode];
+        	$error = Buff::$base->config->get($this->errorCode,'error')
         	return empty($error) ? 'unknow error' : $error;
         }
 
