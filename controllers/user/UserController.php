@@ -32,6 +32,7 @@ class UserController
             $user = DB::table('user')
                 ->where('uid',$uid)
                 ->orWhere('account',$account)
+                ->get()
                 ->first();
             $expend = (microtime(true)-$start)*1000;
             if (empty($user)) {
