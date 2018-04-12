@@ -26,7 +26,7 @@ class UserController
         if (empty($uid)) {
           $this->responseService->withFailure();
           $this->responseService->withErrorCode(-1);
-          $this->responseService->withErrorMessage('Param uid not be null!');
+          $this->responseService->withErrorMessage('missing parameter!');
         } else {
           $start = microtime(true);
           $user = $this->table->where('uid','=',$uid)->get()->first();
@@ -34,7 +34,7 @@ class UserController
           if (empty($user)) {
             $this->responseService->withFailure();
             $this->responseService->withErrorCode(-1);
-            $this->responseService->withErrorMessage('User not found!');
+            $this->responseService->withErrorMessage('not found!');
           } else {
             $userModel = new UserModel($user);
             $this->responseService->withSuccess();
