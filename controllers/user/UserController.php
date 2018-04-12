@@ -6,18 +6,17 @@ use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Capsule\Manager as DB;
 use Buff\classes\services\ResponseService;
 use Buff\lib\data\StringEx;
 
 class UserController
 {
    protected $container;
-   protected $table;
    private $responseService;
 
    public function __construct(ContainerInterface $container) {
        $this->container = $container;
-       $this->table = $container->get('db')->table('user');
        $this->responseService = new ResponseService();
    }
 
@@ -26,27 +25,29 @@ class UserController
         $uid = $req->getQueryParam('uid',$default = '');
         $account = $req->getQueryParam('account',$default = '');
         if (empty($uid) && empty($account)) {
-          $this->responseService->withFailure();
-          $this->responseService->withErrorCode(5001);
-        } else {
-          $start = microtime(true);
-          $user = $this->table->orWhere([['uid', '=', $uid],['account', '=', $account]])->get()->first();
-          var_dump($this->table->orWhere(['uid','account'], [$uid,$account])->toSql());die;
-          $expend = (microtime(true)-$start)*1000;
-          if (empty($user)) {
             $this->responseService->withFailure();
-            $this->responseService->withErrorCode(6001);
-          } else {
-            $userModel = new UserModel($user);
-            if ($userModel->getPrivate() == true) {
+            $this->responseService->withErrorCode(5001);
+        } else {
+            $start = microtime(true);
+            $user = DB::table('user')
+                ->where('uid',$uid)
+                ->orWhere('account',$account)
+                ->first();
+            $expend = (microtime(true)-$start)*1000;
+            if (empty($user)) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(7001);
+                $this->responseService->withErrorCode(6001);
             } else {
-                $this->responseService->withSuccess();
-                $this->responseService->withData($userModel);
-                $this->responseService->withExpend($expend);
+                $userModel = new UserModel($user);
+                if ($userModel->getPrivate() == true) {
+                    $this->responseService->withFailure();
+                    $this->responseService->withErrorCode(7001);
+                } else {
+                    $this->responseService->withSuccess();
+                    $this->responseService->withData($userModel);
+                    $this->responseService->withExpend($expend);
+                }
             }
-          }
         }
 
         return $res
