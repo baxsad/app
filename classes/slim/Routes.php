@@ -17,7 +17,7 @@ $app->group('/api', function () use ($app) {
 	// user
     $app->group('/members', function () use ($app) {
         $app->get('/show', UserController::class . ':get');
-        $app->post('[/]', UserController::class . ':create');
+        $app->post('/creat', UserController::class . ':create');
         $app->put('/:id', UserController::class . ':update');
         $app->delete('/:id', UserController::class . ':delete');
     });

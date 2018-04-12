@@ -10,11 +10,13 @@ class UserModel extends ResponseModel implements ResponseModelInterface
 {
 	private $uid;
 	private $username;
+	private $private;
 	private $avatar;
 
 	public function __construct(Object $dao)
 	{
 		$this->uid        = (int)    $dao->uid;
+		$this->private    = (bool)   $dao->private;
 		$this->username   = (string) $dao->username;
 		$this->avatar     = (string) $dao->avatar;
 	}
@@ -22,6 +24,11 @@ class UserModel extends ResponseModel implements ResponseModelInterface
 	public function getUID(): int
 	{
 		return $this->uid;
+	}
+
+	public function getPrivate(): bool
+	{
+		return $this->private;
 	}
 
 	public function getUserName(): string
@@ -38,6 +45,7 @@ class UserModel extends ResponseModel implements ResponseModelInterface
 	{
 		return [
 			'uid'        => $this->uid,
+			'private'    => $this->private,
 			'username'   => $this->username,
 			'avatar'     => $this->avatar
 		];

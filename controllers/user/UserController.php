@@ -35,9 +35,14 @@ class UserController
             $this->responseService->withErrorCode(6001);
           } else {
             $userModel = new UserModel($user);
-            $this->responseService->withSuccess();
-            $this->responseService->withData($userModel);
-            $this->responseService->withExpend($expend);
+            if ($userModel->getPrivate() == true) {
+                $this->responseService->withFailure();
+                $this->responseService->withErrorCode(7001);
+            } else {
+                $this->responseService->withSuccess();
+                $this->responseService->withData($userModel);
+                $this->responseService->withExpend($expend);
+            }
           }
         }
 
