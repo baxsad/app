@@ -1,10 +1,8 @@
 <?php
 
-namespace Buff\lib;
-
 use Buff\lib\config\Config;
 
-class UIApplication
+class APP
 {
     public static $base;
     public static $base_root;

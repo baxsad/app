@@ -1,8 +1,7 @@
 <?php
 
 namespace Buff\lib\config;
-
-use Buff\lib\USApplication as APP;
+use APP;
 
 class Config
 {

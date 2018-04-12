@@ -1,13 +1,13 @@
 <?php
 date_default_timezone_set('PRC');
 require __DIR__ . '/vendor/autoload.php';
-require __DIR__ . '/lib/USApplication.php';
+require __DIR__ . '/lib/APP.php';
 
 // OW!~
 // APP registry
-\USApplication::registry();
+APP::registry();
 // Instantiate the app
-$cof = \USApplication::$base->config->loadConfig('main');
+$cof = APP::$base->config->loadConfig('main');
 $app = new \Slim\App(['settings' => $cof]);
 /**
  * Register dependencies
