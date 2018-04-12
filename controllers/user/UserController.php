@@ -33,7 +33,8 @@ class UserController
           $user = null;
           if (!empty($uid)) {
             $user = $this->table->where('uid','=',$uid)->get()->first();
-          } elseif (!empty($account)) {
+          }
+          if (empty($user) && !empty($account)) {
             $user = $this->table->where('account','=',$account)->get()->first();
           }
           $expend = (microtime(true)-$start)*1000;
