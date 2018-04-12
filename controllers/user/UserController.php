@@ -30,7 +30,7 @@ class UserController
           $this->responseService->withErrorCode(5001);
         } else {
           $start = microtime(true);
-          $user = $this->table->orWhere(['uid','account'],'=',[$uid,$account],'')->get()->first();
+          $user = $this->table->orWhere([['uid', '=', $uid],['account', '=', $account]])->first();
           $expend = (microtime(true)-$start)*1000;
           if (empty($user)) {
             $this->responseService->withFailure();
