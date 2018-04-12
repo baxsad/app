@@ -30,14 +30,7 @@ class UserController
           $this->responseService->withErrorCode(5001);
         } else {
           $start = microtime(true);
-          $user = null;
-          if (!empty($uid)) {
-            $user = $this->table->where('uid','=',$uid,'')->get()->first();
-          }
-          if (empty($user) && !empty($account)) {
-            $user = $this->table->where('account','=',$account,'')->get()->first();
-            var_dump($account.$this->table->where('account','=',$account)->toSql());die;
-          }
+          $user = $this->table->orWhere(['uid','account'],'=',[$uid,$account],'')->get()->first();
           $expend = (microtime(true)-$start)*1000;
           if (empty($user)) {
             $this->responseService->withFailure();
