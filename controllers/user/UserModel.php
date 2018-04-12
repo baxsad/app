@@ -15,6 +15,7 @@ class UserModel extends ResponseModel implements ResponseModelInterface
 	private $bio;
 	private $private;
 	private $created;
+	private $modify;
 
 	public function __construct(Object $dao)
 	{
@@ -25,6 +26,7 @@ class UserModel extends ResponseModel implements ResponseModelInterface
 		$this->bio        = (string) $dao->bio;
 		$this->private    = (bool)   $dao->private;
 		$this->created    = (int)    strtotime($dao->created);
+		$this->modify     = (int)    strtotime($dao->modify);
 	}
 
 	public function getUID(): int
@@ -62,6 +64,11 @@ class UserModel extends ResponseModel implements ResponseModelInterface
 		return $this->created;
 	}
 
+	public function getModify(): int
+	{
+		return $this->modify;
+	}
+
 	public function toArray(): array
 	{
 		return [
@@ -72,6 +79,7 @@ class UserModel extends ResponseModel implements ResponseModelInterface
 			'bio'        => $this->bio,
 			'private'    => $this->private,
 			'created'    => $this->created,
+			'modify'     => $this->modify
 		];
 	}
 }
