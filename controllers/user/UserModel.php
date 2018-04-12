@@ -24,7 +24,7 @@ class UserModel extends ResponseModel implements ResponseModelInterface
 		$this->avatar     = (string) $dao->avatar;
 		$this->bio        = (string) $dao->bio;
 		$this->private    = (bool)   $dao->private;
-		$this->created    = (int)    $dao->created;
+		$this->created    = (int)    strtotime($dao->created);
 	}
 
 	public function getUID(): int
