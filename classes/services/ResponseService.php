@@ -3,7 +3,7 @@
 namespace Buff\classes\services;
 
 use Buff\classes\response\ResponseModelInterface;
-use Buff\lib\UIApplication as APP;
+use Buff\lib\USApplication as APP;
 
 class ResponseService
 {

@@ -2,7 +2,7 @@
 
 namespace Buff\lib\config;
 
-use Buff\lib\UIApplication as APP;
+use Buff\lib\USApplication as APP;
 
 class Config
 {
