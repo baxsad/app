@@ -24,12 +24,18 @@ class UserController
    public function get(Request $req,  Response $res, $args = []) {
 
         $uid = $req->getQueryParam('uid',$default = '');
-        if (empty($uid)) {
+        $account = $req->getQueryParam('account',$default = '');
+        if (empty($uid) && empty($account)) {
           $this->responseService->withFailure();
           $this->responseService->withErrorCode(5001);
         } else {
           $start = microtime(true);
-          $user = $this->table->where('uid','=',$uid)->get()->first();
+          $user = null;
+          if (!empty($uid)) {
+            $user = $this->table->where('uid','=',$uid)->get()->first();
+          } elseif (!empty($account)) {
+            $user = $this->table->where('account','=',$account)->get()->first();
+          }
           $expend = (microtime(true)-$start)*1000;
           if (empty($user)) {
             $this->responseService->withFailure();
