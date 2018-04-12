@@ -17,9 +17,9 @@ class ResponseService
     private $errorConfig;
 
     public function __construct() {
-        $path = '../../config/error.php';
+        $path = dirname(dirname(__DIR__)).'/config/error.php';
         $this->errorConfig = is_readable($path) ? require($path) : [];
-        var_dump($this->errorConfig);die;
+        var_dump($path);die;
     }
 
     public function withSuccess()
