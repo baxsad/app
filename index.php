@@ -8,7 +8,6 @@ require __DIR__ . '/lib/APP.php';
 APP::registry();
 // Instantiate the app
 $cof = APP::$base->config->get('settings');
-var_dump($cof);die;
 $app = new \Slim\App(['settings' => $cof]);
 /**
  * Register dependencies
