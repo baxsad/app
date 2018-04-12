@@ -4,6 +4,9 @@ namespace Buff;
 
 use Buff\lib\config\Config;
 
+/**
+* 
+*/
 class Buff
 {
     public static $base;
