@@ -31,7 +31,7 @@ class UserController
         } else {
           $start = microtime(true);
           $user = $this->table->orWhere([['uid', '=', $uid],['account', '=', $account]])->get()->first();
-          var_dump($this->table->where('uid', $uid)->orWhere('account', $account)->toSql());die;
+          var_dump($this->table->orWhere(['uid','account'], [$uid,$account])->toSql());die;
           $expend = (microtime(true)-$start)*1000;
           if (empty($user)) {
             $this->responseService->withFailure();
