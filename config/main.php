@@ -2,7 +2,7 @@
 
 return array(
 	
-    'setting' => [
+    'settings' => [
     	//app
 		'displayErrorDetails'    => false,
 	    'addContentLengthHeader' => false,
@@ -21,9 +21,9 @@ return array(
 
 	    //logger
 	    'logger' => array(
-		'name' => 'girleo',
-        'level' => Monolog\Logger::DEBUG,
-        'path' => __DIR__ . '/../logs/app.log',
+		    'name' => 'girleo',
+            'level' => Monolog\Logger::DEBUG,
+            'path' => __DIR__ . '/../logs/app.log',
 	    )
 	]
 );
