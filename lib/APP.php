@@ -4,10 +4,7 @@ namespace Buff\lib;
 
 use Buff\lib\config\Config;
 
-/**
-* 
-*/
-class APP
+class UIApplication
 {
     public static $base;
     public static $base_root;
