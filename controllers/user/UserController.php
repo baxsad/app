@@ -7,6 +7,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface;
 use Illuminate\Database\Query\Builder;
 use Buff\classes\services\ResponseService;
+use Buff\extends\Const;
+use Buff\lib\data\String;
 
 class UserController
 {
@@ -52,10 +54,21 @@ class UserController
    }
 
    public function create(Request $req,  Response $res, $args = []) {
+
+        
         return $res
             ->withStatus(200)
             ->withHeader('Content-Type','application/json')
             ->write('create');
+   }
+
+   public function auth(Request $req,  Response $res, $args = []) {
+
+        
+        return $res
+            ->withStatus(200)
+            ->withHeader('Content-Type','application/json')
+            ->write('auth');
    }
 
    public function update(Request $req,  Response $res, $args = []) {
