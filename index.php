@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('PRC');
 require __DIR__ . '/vendor/autoload.php';
-require __DIR__ . '/lib/Buff.php';
+use Buff;
 
 // OW!~
 // Buff registry
