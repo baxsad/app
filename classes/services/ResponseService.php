@@ -17,7 +17,7 @@ class ResponseService
     private $errorConfig;
 
     public function __construct() {
-        $path = '/../config/error.php';
+        $path = '../../config/error.php';
         $this->errorConfig = is_readable($path) ? require($path) : [];
     }
 
@@ -91,6 +91,7 @@ class ResponseService
 		$this->responseData['error']['errorCode'] = $this->errorCode;
 		$this->responseData['error']['errorMessage'] = $this->getErrorMessage();
 		$this->responseData['date']    = time();
+		$this->responseData['path']    = __DIR__;
 		if (!empty($this->expend)) {
 			$this->responseData['expend']  = $this->expend;
 		}
