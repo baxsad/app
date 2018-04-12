@@ -2,7 +2,7 @@
 
 namespace Buff\lib\config;
 
-use Buff;
+use Buff\lib\Buff;
 
 class Config
 {

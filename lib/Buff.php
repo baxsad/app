@@ -1,6 +1,6 @@
 <?php
 
-namespace Buff;
+namespace Buff\lib;
 
 use Buff\lib\config\Config;
 

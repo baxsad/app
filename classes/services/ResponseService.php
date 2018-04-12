@@ -3,7 +3,7 @@
 namespace Buff\classes\services;
 
 use Buff\classes\response\ResponseModelInterface;
-use Buff;
+use Buff\lib\Buff;
 
 class ResponseService
 {
