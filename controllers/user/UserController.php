@@ -6,7 +6,7 @@ use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface;
 use Illuminate\Database\Query\Builder;
-use Illuminate\Database\Capsule\Manager as DB;
+use Illuminate\Database\Capsule\Manager as Capsule;
 use Buff\classes\services\ResponseService;
 use Buff\lib\data\StringEx;
 
@@ -29,7 +29,7 @@ class UserController
             $this->responseService->withErrorCode(5001);
         } else {
             $start = microtime(true);
-            $user = DB::table('user')
+            $user  = Capsule::table('user')
                 ->where('uid',$uid)
                 ->orWhere('account',$account)
                 ->get()
