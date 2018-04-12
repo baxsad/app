@@ -2,7 +2,7 @@
 
 namespace Buff\lib\config;
 
-use Buff\lib\Buff;
+use Buff\lib\APP;
 
 class Config
 {
@@ -26,7 +26,7 @@ class Config
     private function loadConfig($module)
     {
         if (!isset($this->caches[$module])) {
-            $path = Buff::$base_root . DS . 'config' . DS . $module . '.php';
+            $path = APP::$base_root . DS . 'config' . DS . $module . '.php';
             $config = is_readable($path) ? require($path) : [];
             $this->caches[$module] = $config;
         }

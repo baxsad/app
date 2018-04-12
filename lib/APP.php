@@ -7,7 +7,7 @@ use Buff\lib\config\Config;
 /**
 * 
 */
-class Buff
+class APP
 {
     public static $base;
     public static $base_root;

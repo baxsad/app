@@ -1,13 +1,13 @@
 <?php
 date_default_timezone_set('PRC');
 require __DIR__ . '/vendor/autoload.php';
-include __DIR__ . '/lib/Buff.php';
+include __DIR__ . '/lib/APP.php';
 
 // OW!~
 // Buff registry
-Buff::registry();
+APP::registry();
 // Instantiate the app
-$cof = Buff::$base->config->loadConfig('main');
+$cof = APP::$base->config->loadConfig('main');
 $app = new \Slim\App(['settings' => $cof]);
 /**
  * Register dependencies
