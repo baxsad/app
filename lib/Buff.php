@@ -2,7 +2,7 @@
 
 namespace buff;
 
-use buff\lib\config\Config.php;
+use buff\lib\config\Config;
 
 class Buff
 {

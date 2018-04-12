@@ -7,7 +7,7 @@ require __DIR__ . '/lib/Buff.php';
 // Buff registry
 Buff::registry();
 // Instantiate the app
-$cof = require __DIR__ . '/config/main.php';
+$cof = Buff::$base->config->loadConfig('main');
 $app = new \Slim\App(['settings' => $cof]);
 /**
  * Register dependencies
