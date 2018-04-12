@@ -36,7 +36,7 @@ class UserController
           }
           if (empty($user) && !empty($account)) {
             $user = $this->table->where('account','=',$account)->get()->first();
-            var_dump($user);die;
+            var_dump($account);die;
           }
           $expend = (microtime(true)-$start)*1000;
           if (empty($user)) {
