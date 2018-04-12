@@ -104,7 +104,7 @@ class ResponseService
 	public function getErrorMessage(): string
 	{
         if (empty($this->errorMessage)) {
-        	$error = APP::$base->config->get($this->errorCode,'error')
+        	$error = APP::$base->config->get($this->errorCode,'error');
         	return empty($error) ? 'unknow error' : $error;
         }
 
