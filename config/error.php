@@ -4,7 +4,7 @@ return array(
     1000 => 'System Error',
 
     /* controller error */
-    2001=> 'Method not exists',
+    2001 => 'Method not exists',
 
     /* DAO error */
     3001 => 'Connect mysql is fail',
@@ -23,7 +23,7 @@ return array(
     6001 => 'data not found',
 
     /* bussiness error */
-    7001 => 'private of user information'
+    7001 => 'private of user information',
 
     /* custom error */
     8000 => 'custom Error',
