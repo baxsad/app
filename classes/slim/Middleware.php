@@ -26,47 +26,25 @@ $app->add(function ($req, $res, $next) {
 });
 
 $app->add(
-	new \Slim\Middleware\JwtAuthentication(
-		[
-			"secret"    => Environment::$jwtSecretKey,
-			"relaxed" => Environment::$developmentDomains,
-			"algorithm" => "HS256",
-			"header" => "X-Token",
-			"rules"     => [
-				new \Slim\Middleware\JwtAuthentication\RequestPathRule(
-					[
-						"path"        => "/",
-						"passthrough" => ['/v1/token'],
-					]
-				),
-				new \Slim\Middleware\JwtAuthentication\RequestMethodRule(
-					[
-						"passthrough" => ["OPTIONS"],
-					]
-				),
-				new \Slim\Middleware\JwtAuthentication\RequestMethodRule(
-					[
-						"passthrough" => ["POST"],
-					    "path" => "/v1/users"
-					]
-				),
-				new \Slim\Middleware\JwtAuthentication\RequestMethodRule(
-					[
-						"passthrough" => ["POST"],
-						"path" => "/v1/account"
-					]
-				)
-			],
-			"callback"  => function ($request, $response, $arguments) use ($container) {
-				$container["jwt"] = $arguments["decoded"];
-			},
-			"error"     => function ($request, $response, $arguments) {
-				(new Invobox\Api\Response\ResponseService())
-					->withErrorMessage($arguments["message"])
-					->withStatusCode(401)
-					->withErrorCode(ResponseErrorCodes::RESPONSE_CODE_UNAUTHORIZED)
-					->write();
-			},
-		]
-	)
+	new Tuupola\Middleware\JwtAuthentication([
+		"attribute" => "jwt",
+		"header" => "X-Token",
+		"cookie" => "nekot",
+		"algorithm" => ["HS256", "HS384"],
+		"logger" => $app->getContainer()['logger'],
+		"secure" => false,
+		"secret" => "supersecretkeyyoushouldnotcommittogithub",
+		"rules" => [
+            new Tuupola\Middleware\JwtAuthentication\RequestPathRule([
+                "path"   => "/",
+                "ignore" => ['/api/token'],
+            ]),
+            new Tuupola\Middleware\JwtAuthentication\RequestMethodRule([
+                "ignore" => ["OPTIONS"]
+            ]),new Tuupola\Middleware\JwtAuthentication\RequestMethodRule([
+                "ignore" => ["POST"],
+                "path"   => ["/api/members/create","/api/members/auth"]
+            ])
+        ]
+    ])
 );

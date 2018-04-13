@@ -22,4 +22,9 @@ $app->group('/api', function () use ($app) {
         $app->put('/:id', UserController::class . ':update');
         $app->delete('/:id', UserController::class . ':delete');
     });
+
+    // tokens
+    $app->group('/token', function () use ($app) {
+    	
+    });
 });
