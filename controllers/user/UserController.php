@@ -99,20 +99,20 @@ class UserController
                     $this->responseService->withFailure();
                     $this->responseService->withErrorCode(5007);
                 } else {
-                    $now = new DateTime();
-                    $future = new DateTime("now +99999999 hours");
+                    $now = strtotime(date("Y-m-d H:i:s"));
+                    $future = strtotime((new \DateTime('+99 day'))->format('Y-m-d H:i:s'));
                     $server = $req->getServerParams();
                     $jti = (new Base62)->encode(random_bytes(16));
                     $payload   = [
-                        "iat" => strtotime(date("Y-m-d H:i:s")),
-                        "exp" => strtotime((new \DateTime('+1 day'))->format('Y-m-d H:i:s')),
+                        "iat" => $now,
+                        "exp" => $future,
                         "jti" => $jti,
                         "sub" => $server["PHP_AUTH_USER"],
                     ];
                     $token = JWT::encode($payload, "ILLBEWAITINGTILLIHEARYOUSAYIDO", "HS256");
 
                     $data["token"] = $token;
-                    $data["expires"] = $future->getTimeStamp();
+                    $data["expires"] = $future;
                     $this->responseService->withSuccess();
                     $this->responseService->withData($userModel);
                     $this->responseService->withExpend($expend);
