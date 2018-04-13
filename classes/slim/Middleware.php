@@ -26,7 +26,7 @@ $app->add(function ($req, $res, $next) {
 });
 
 $app->add(
-	new Tuupola\Middleware\JwtAuthentication([
+	new \Tuupola\Middleware\JwtAuthentication([
 		"attribute" => "jwt",
 		"header" => "X-Token",
 		"cookie" => "nekot",
@@ -35,11 +35,11 @@ $app->add(
 		"secure" => false,
 		"secret" => "supersecretkeyyoushouldnotcommittogithub",
 		"rules" => [
-            new Tuupola\Middleware\JwtAuthentication\RequestPathRule([
+            new \Tuupola\Middleware\JwtAuthentication\RequestPathRule([
                 "path"   => "/",
                 "ignore" => ['/api/token'],
             ]),
-            new Tuupola\Middleware\JwtAuthentication\RequestMethodRule([
+            new \Tuupola\Middleware\JwtAuthentication\RequestMethodRule([
                 "ignore" => ["OPTIONS"]
             ]),new Tuupola\Middleware\JwtAuthentication\RequestMethodRule([
                 "ignore" => ["POST"],
