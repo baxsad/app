@@ -2,6 +2,9 @@
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use Tuupola\Middleware\JwtAuthentication;
+use Tuupola\Middleware\JwtAuthentication\RequestMethodRule;
+use Tuupola\Middleware\JwtAuthentication\RequestPathRule;
 
 // alexberce/Slim-API
 // tuupola/slim-api-skeleton
@@ -26,8 +29,8 @@ $app->add(function ($req, $res, $next) {
 });
 
 $app->add(
-	new \Tuupola\Middleware\JwtAuthentication([
-		"attribute" => "jwt",
+	new JwtAuthentication([
+		"attribute" => false,
 		"header" => "X-Token",
 		"cookie" => "nekot",
 		"algorithm" => ["HS256", "HS384"],
@@ -35,13 +38,14 @@ $app->add(
 		"secure" => false,
 		"secret" => "supersecretkeyyoushouldnotcommittogithub",
 		"rules" => [
-            new \Tuupola\Middleware\JwtAuthentication\RequestPathRule([
+            new RequestPathRule([
                 "path"   => "/",
                 "ignore" => ['/api/token'],
             ]),
-            new \Tuupola\Middleware\JwtAuthentication\RequestMethodRule([
+            new RequestMethodRule([
                 "ignore" => ["OPTIONS"]
-            ]),new Tuupola\Middleware\JwtAuthentication\RequestMethodRule([
+            ]),
+            new RequestMethodRule([
                 "ignore" => ["POST"],
                 "path"   => ["/api/members/create","/api/members/auth"]
             ])
