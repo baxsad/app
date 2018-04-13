@@ -58,6 +58,7 @@ $app->add(
             ])
         ],
         "callback"  => function ($request, $response, $arguments) use ($container) {
+        	var_dump($arguments);die;
 			$container["jwt"] = $arguments["decoded"];
 		},
         "error" => function (Request $request, Response $response, $arguments) {
