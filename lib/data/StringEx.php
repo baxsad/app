@@ -4,6 +4,17 @@ namespace Buff\lib\data;
 
 class StringEx 
 {
+
+    /**
+     * 字符长度
+     * @param $str @字符串
+     * @return string
+     */
+    public static function length($str)
+    {
+        return strlen($str);
+    }
+
 	/**
      * 中英文长度截取
      * @param $str @截取字符串

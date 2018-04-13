@@ -10,6 +10,7 @@ use Illuminate\Database\Capsule\Manager;
 use Buff\classes\services\ResponseService;
 use Buff\lib\data\StringEx;
 use Buff\classes\utils\Auth;
+use APP;
 
 class UserController
 {
@@ -123,11 +124,53 @@ class UserController
 
    public function create(Request $req,  Response $res, $args = []) {
 
-        
+        $scopes          = APP::$base->config->get('scopes','reg');
+        $identity_type   = $req->getParam('identity_type');
+        $identifier      = $req->getParam('identifier');
+        $credential      = $req->getParam('credential');
+        if (empty($identity_type) || !is_string($identity_type)) {
+            $this->responseService->withFailure();
+            $this->responseService->withErrorCode(5004);
+        } elseif (!!count(array_intersect($identity_type, $scopes))) {
+            $this->responseService->withFailure();
+            $this->responseService->withErrorCode(5008);
+        } elseif (empty($identifier) || !is_string($identifier)) {
+            $this->responseService->withFailure();
+            $this->responseService->withErrorCode(5005);
+        } elseif (StringEx::length($identifier) < 6) {
+            $this->responseService->withFailure();
+            $this->responseService->withErrorCode(5009);
+        } elseif (empty($credential)) {
+            $this->responseService->withFailure();
+            $this->responseService->withErrorCode(5006);
+        } elseif (StringEx::length($credential) < 6) {
+            $this->responseService->withFailure();
+            $this->responseService->withErrorCode(5010);
+        } else {
+            $start = microtime(true);
+            $user  = $this->DB->table('user')
+                ->insert(['account' => $identifier,'username' => $identifier,]);
+            $auth  = $this->DB->table('user_auths')
+                ->insert(['uid' => $user->uid,
+                          'account' => $identifier,
+                          'identity_type' => $identity_type,
+                          'identifier' => $identifier,
+                          'credential' => md5($credential)
+                         ]);
+            $expend = (microtime(true)-$start)*1000;
+            $userModel = new UserModel($user);
+            $data = $userModel->toArray();
+            $token = Auth::create($user->uid,$user->account);
+            $data["token"] = $token["token"];
+            $data["expires"] = $token["expires"];
+            $this->responseService->withSuccess();
+            $this->responseService->withData($data);
+            $this->responseService->withExpend($expend);
+        }
+
         return $res
             ->withStatus(200)
-            ->withHeader('Content-Type','application/json')
-            ->write('create');
+            ->write($this->responseService->write());
    }
 
    public function update(Request $req,  Response $res, $args = []) {

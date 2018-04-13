@@ -24,6 +24,9 @@ return array(
     5005 => 'The `identifier` field is required',
     5006 => 'The `credential` field is required',
     5007 => 'The `credential` not allow',
+    5008 => 'The `identity_type` not allow',
+    5009 => 'The `identifier` length must min 6',
+    5010 => 'The `credential` length must min 6',
 
     /* sql error */ 
     6001 => 'data not found',
