@@ -39,8 +39,6 @@ $app->add(
         "cookie" => "token",
         "attribute" => "token",
 		"logger" => $app->getContainer()['logger'],
-		"path" => null,
-        "passthrough" => null,
 		"rules" => [
             new RequestPathRule([
                 "path"   => "/",
@@ -53,8 +51,6 @@ $app->add(
                 "passthrough" => ["POST"],
                 "path"   => ["/api/members/create","/api/members/auth"]
             ])
-        ],
-        "callback" => null,
-        "error" => null
+        ]
     ])
 );
