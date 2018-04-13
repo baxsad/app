@@ -148,12 +148,12 @@ class UserController
             $this->responseService->withErrorCode(5010);
         } else {
             $start = microtime(true);
-            $user  = $this->DB->table('user')
-                ->insert(['account' => $identifier,'username' => $identifier,]);
+            $uid   = $this->DB->table('user')
+                ->insertGetId(['account' => $identifier,'username' => $identifier,]);
             var_dump($user);die;
             $auth  = $this->DB->table('user_auths')
-                ->insert(['uid' => $user->uid,
-                          'account' => $user->account,
+                ->insert(['uid' => $uid,
+                          'account' => $identifier,
                           'identity_type' => $identity_type,
                           'identifier' => $identifier,
                           'credential' => md5($credential)
