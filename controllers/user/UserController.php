@@ -9,7 +9,7 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Capsule\Manager;
 use Buff\classes\services\ResponseService;
 use Buff\lib\data\StringEx;
-use Buff\classes\utils\Token;
+use Buff\classes\utils\Auth;
 
 class UserController
 {
@@ -105,7 +105,7 @@ class UserController
                         ->first();
                     $userModel = new UserModel($user);
                     $data = $userModel->toArray();
-                    $token = Token::create($uid);
+                    $token = Auth::create($uid);
                     $data["token"] = $token["token"];
                     $data["expires"] = $token["expires"];
                     $this->responseService->withSuccess();

@@ -36,7 +36,7 @@ $app->add(
 		"secret" => Environment::$jwtSecretKey,
         "relaxed" => ["localhost", "127.0.0.1"],
         "environment" => ["HTTP_AUTHORIZATION", "REDIRECT_HTTP_AUTHORIZATION"],
-        "algorithm" => ["HS256", "HS512", "HS384"],
+        "algorithm" => Environment::$jwtAlgorithm,
         "header" => "Authorization",
         "regexp" => "/OwO\s+(.*)$/i",
         "cookie" => "token",
@@ -59,8 +59,7 @@ $app->add(
             ])
         ],
         "callback"  => function ($request, $response, $arguments) use ($container) {
-        	var_dump($arguments);die;
-			$container["jwt"] = $arguments["decoded"];
+        	$jwt = $arguments;
 		},
         "error" => function (Request $request, Response $response, $arguments) {
         	$responseService = new ResponseService();
