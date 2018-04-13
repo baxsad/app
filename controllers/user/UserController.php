@@ -103,8 +103,8 @@ class UserController
                     $user = $this->DB->table('user')
                         ->where('uid',$uid)
                         ->get()
-                        ->first()
-                        ->toArray();
+                        ->first();
+                    var_dump($user);die;
                     $now = strtotime(date("Y-m-d H:i:s"));
                     $future = strtotime((new \DateTime('+99 day'))->format('Y-m-d H:i:s'));
                     $server = $req->getServerParams();
