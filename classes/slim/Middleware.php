@@ -50,7 +50,11 @@ $app->add(
             ]),
             new RequestMethodRule([
                 "passthrough" => ["POST"],
-                "path"   => ["/api/members/create","/api/members/auth","/api/members/show"]
+                "path"   => ["/api/members/create","/api/members/auth"]
+            ]),
+            new RequestMethodRule([
+                "passthrough" => ["GET"],
+                "path"   => ["/api/members/show"]
             ])
         ],
         "error" => function (Request $request, Response $response, $arguments) {
