@@ -100,6 +100,10 @@ class UserController
                     $this->responseService->withFailure();
                     $this->responseService->withErrorCode(5007);
                 } else {
+                    $user = $this->DB->table('user')
+                        ->where('uid',$uid)
+                        ->get()
+                        ->first();
                     $now = strtotime(date("Y-m-d H:i:s"));
                     $future = strtotime((new \DateTime('+99 day'))->format('Y-m-d H:i:s'));
                     $server = $req->getServerParams();
@@ -111,10 +115,10 @@ class UserController
                     ];
                     $token = JWT::encode($payload, "ILLBEWAITINGTILLIHEARYOUSAYIDO", "HS256");
 
-                    $data["token"] = $token;
-                    $data["expires"] = $future;
+                    $user["token"] = $token;
+                    $user["expires"] = $future;
                     $this->responseService->withSuccess();
-                    $this->responseService->withData($data);
+                    $this->responseService->withData($user);
                     $this->responseService->withExpend($expend);
                 }
             }
