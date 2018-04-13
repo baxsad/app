@@ -27,6 +27,8 @@ return array(
     5008 => 'The `identity_type` not allow',
     5009 => 'The `identifier` length must min 6',
     5010 => 'The `credential` length must min 6',
+    5011 => 'Member create field',
+    5012 => 'Member already exist',
 
     /* sql error */ 
     6001 => 'data not found',

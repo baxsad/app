@@ -128,40 +128,91 @@ class UserController
         $identity_type   = $req->getParam('identity_type');
         $identifier      = $req->getParam('identifier');
         $credential      = $req->getParam('credential');
-        if (empty($identity_type) || !is_string($identity_type)) {
-            $this->responseService->withFailure();
-            $this->responseService->withErrorCode(5004);
-        } elseif (!!count(array_intersect($identity_type, $scopes))) {
-            $this->responseService->withFailure();
-            $this->responseService->withErrorCode(5008);
-        } elseif (empty($identifier) || !is_string($identifier)) {
-            $this->responseService->withFailure();
-            $this->responseService->withErrorCode(5005);
-        } elseif (StringEx::length($identifier) < 6) {
-            $this->responseService->withFailure();
-            $this->responseService->withErrorCode(5009);
-        } elseif (empty($credential)) {
-            $this->responseService->withFailure();
-            $this->responseService->withErrorCode(5006);
-        } elseif (StringEx::length($credential) < 6) {
-            $this->responseService->withFailure();
-            $this->responseService->withErrorCode(5010);
-        } else {
+
+        do {
+            if (empty($identity_type) || !is_string($identity_type)) {
+                $this->responseService->withFailure();
+                $this->responseService->withErrorCode(5004);
+                break;
+            }
+            if (!!count(array_intersect($identity_type, $scopes))) {
+                $this->responseService->withFailure();
+                $this->responseService->withErrorCode(5008);
+                break;
+            }
+            if (empty($identifier) || !is_string($identifier)) {
+                $this->responseService->withFailure();
+                $this->responseService->withErrorCode(5005);
+                break;
+            }
+            if (StringEx::length($identifier) < 6) {
+                $this->responseService->withFailure();
+                $this->responseService->withErrorCode(5009);
+                break;
+            }
+            if (empty($credential)) {
+                $this->responseService->withFailure();
+                $this->responseService->withErrorCode(5006);
+                break;
+            }
+            if (StringEx::length($credential) < 6) {
+                $this->responseService->withFailure();
+                $this->responseService->withErrorCode(5010);
+                break;
+            }
             $start = microtime(true);
-            $uid   = $this->DB->table('user')
-                ->insert(['account' => $identifier,'username' => $identifier]);
-            $auth  = $this->DB->table('user_auths')
-                ->insert(['uid' => $uid,
-                          'account' => $identifier,
-                          'identity_type' => $identity_type,
-                          'identifier' => $identifier,
-                          'credential' => md5($credential)
-                         ]);
-            $user = $this->DB->table('user')
+            $find = $this
+                ->DB
+                ->table('user')
                 ->where('account',$identifier)
                 ->get()
                 ->first();
+            if (false == empty($find)) {
+                $this->responseService->withFailure();
+                $this->responseService->withErrorCode(5012);
+                break;
+            }
+            $ok = $this
+                ->DB
+                ->table('user')
+                ->insert(['account' => $identifier,'username' => $identifier]);
+            if (false == $ok) {
+                $this->responseService->withFailure();
+                $this->responseService->withErrorCode(5011);
+                break;
+            }
+            $user = $this
+                ->DB
+                ->table('user')
+                ->where('account',$identifier)
+                ->get()
+                ->first();
+            if (empty($user)) {
+                $this
+                    ->DB
+                    ->table('user')
+                    ->where('account',$identifier)
+                    ->delete();
+                $this->responseService->withFailure();
+                $this->responseService->withErrorCode(5011);
+                break;
+            }
+            $ok = $this
+                ->DB->table('user_auths')
+                ->insert([
+                    'uid' => $user->uid,
+                    'account' => $user->account,
+                    'identity_type' => $identity_type,
+                    'identifier' => $identifier,
+                    'credential' => md5($credential)
+                        ]);
+            if (false == $ok) {
+                $this->responseService->withFailure();
+                $this->responseService->withErrorCode(5011);
+                break;
+            }
             $expend = (microtime(true)-$start)*1000;
+
             $userModel = new UserModel($user);
             $data = $userModel->toArray();
             $token = Auth::create($userModel->getUID(),$user->getAccount());
@@ -170,7 +221,7 @@ class UserController
             $this->responseService->withSuccess();
             $this->responseService->withData($data);
             $this->responseService->withExpend($expend);
-        }
+        } while (false);
 
         return $res
             ->withStatus(200)
