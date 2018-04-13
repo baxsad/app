@@ -115,8 +115,8 @@ class UserController
                     ];
                     $token = JWT::encode($payload, "ILLBEWAITINGTILLIHEARYOUSAYIDO", "HS256");
 
-                    $user->token = $token;
-                    $user->expires = $future;
+                    $user->put('token',$token);
+                    $user->put('expires',$future);
                     $this->responseService->withSuccess();
                     $this->responseService->withData($user);
                     $this->responseService->withExpend($expend);
