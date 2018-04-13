@@ -30,13 +30,17 @@ $app->add(function ($req, $res, $next) {
 
 $app->add(
 	new JwtAuthentication([
-		"attribute" => false,
-		"header" => "X-Token",
-		"cookie" => "nekot",
-		"algorithm" => ["HS256", "HS384"],
+		"secure" => true,
+        "relaxed" => ["localhost", "127.0.0.1"],
+        "environment" => ["HTTP_AUTHORIZATION", "REDIRECT_HTTP_AUTHORIZATION"],
+        "algorithm" => ["HS256", "HS512", "HS384"],
+        "header" => "Authorization",
+        "regexp" => "/Bearer\s+(.*)$/i",
+        "cookie" => "token",
+        "attribute" => "token",
 		"logger" => $app->getContainer()['logger'],
-		"secure" => false,
-		"secret" => "supersecretkeyyoushouldnotcommittogithub",
+		"path" => null,
+        "passthrough" => null,
 		"rules" => [
             new RequestPathRule([
                 "path"   => "/",
@@ -49,6 +53,8 @@ $app->add(
                 "passthrough" => ["POST"],
                 "path"   => ["/api/members/create","/api/members/auth"]
             ])
-        ]
+        ],
+        "callback" => null,
+        "error" => null
     ])
 );
