@@ -149,7 +149,7 @@ class UserController
         } else {
             $start = microtime(true);
             $uid   = $this->DB->table('user')
-                ->insertGetId(['account' => $identifier,'username' => $identifier,]);
+                ->insert(['account' => $identifier,'username' => $identifier]);
             $auth  = $this->DB->table('user_auths')
                 ->insert(['uid' => $uid,
                           'account' => $identifier,
@@ -157,10 +157,14 @@ class UserController
                           'identifier' => $identifier,
                           'credential' => md5($credential)
                          ]);
+            $user = $this->DB->table('user')
+                ->where('account',$identifier)
+                ->get()
+                ->first();
             $expend = (microtime(true)-$start)*1000;
             $userModel = new UserModel($user);
             $data = $userModel->toArray();
-            $token = Auth::create($user->uid,$user->account);
+            $token = Auth::create($userModel->getUID(),$user->getAccount());
             $data["token"] = $token["token"];
             $data["expires"] = $token["expires"];
             $this->responseService->withSuccess();
