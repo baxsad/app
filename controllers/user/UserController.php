@@ -9,8 +9,7 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Capsule\Manager;
 use Buff\classes\services\ResponseService;
 use Buff\lib\data\StringEx;
-use Firebase\JWT\JWT;
-use Tuupola\Base62;
+use Buff\classes\utils\Token;
 
 class UserController
 {
@@ -106,19 +105,9 @@ class UserController
                         ->first();
                     $userModel = new UserModel($user);
                     $data = $userModel->toArray();
-                    $now = strtotime(date("Y-m-d H:i:s"));
-                    $future = strtotime((new \DateTime('+99 day'))->format('Y-m-d H:i:s'));
-                    $server = $req->getServerParams();
-                    $payload   = [
-                        "uid" => $uid,
-                        "iat" => $now,
-                        "exp" => $future,
-                        "sub" => $server["PHP_AUTH_USER"],
-                    ];
-                    $token = JWT::encode($payload, "ILLBEWAITINGTILLIHEARYOUSAYIDO", "HS256");
-
-                    $data["token"] = $token;
-                    $data["expires"] = $future;
+                    $token = Token::create($uid);
+                    $data["token"] = $token["token"];
+                    $data["expires"] = $token["expires"];
                     $this->responseService->withSuccess();
                     $this->responseService->withData($data);
                     $this->responseService->withExpend($expend);

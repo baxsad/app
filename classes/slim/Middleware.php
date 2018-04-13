@@ -6,6 +6,7 @@ use Slim\Middleware\JwtAuthentication;
 use Slim\Middleware\JwtAuthentication\RequestMethodRule;
 use Slim\Middleware\JwtAuthentication\RequestPathRule;
 use Buff\classes\services\ResponseService;
+use Buff\classes\utils\Environment;
 
 // alexberce/Slim-API
 // tuupola/slim-api-skeleton
@@ -32,7 +33,7 @@ $app->add(function ($req, $res, $next) {
 $app->add(
 	new JwtAuthentication([
 		"secure" => false,
-		"secret" => "ILLBEWAITINGTILLIHEARYOUSAYIDO",
+		"secret" => Environment::jwtSecretKey,
         "relaxed" => ["localhost", "127.0.0.1"],
         "environment" => ["HTTP_AUTHORIZATION", "REDIRECT_HTTP_AUTHORIZATION"],
         "algorithm" => ["HS256", "HS512", "HS384"],
