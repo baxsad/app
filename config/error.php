@@ -20,7 +20,7 @@ return array(
     5001 => 'The `uid` or `account` field must be of type: string',
     5002 => 'The `uid` field must be of type: string',
     5003 => 'The `account` field must be of type: string',
-    5004 => 'The `identifier_type` field is required',
+    5004 => 'The `identity_type` field is required',
     5005 => 'The `identifier` field is required',
     5006 => 'The `credential` field is required',
     5007 => 'The `credential` not allow',
