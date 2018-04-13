@@ -150,7 +150,6 @@ class UserController
             $start = microtime(true);
             $uid   = $this->DB->table('user')
                 ->insertGetId(['account' => $identifier,'username' => $identifier,]);
-            var_dump($user);die;
             $auth  = $this->DB->table('user_auths')
                 ->insert(['uid' => $uid,
                           'account' => $identifier,
