@@ -112,7 +112,7 @@ class UserController
                     $data["token"] = $token;
                     $data["expires"] = $future;
                     $this->responseService->withSuccess();
-                    $this->responseService->withData($userModel);
+                    $this->responseService->withData($data);
                     $this->responseService->withExpend($expend);
                 }
             }
