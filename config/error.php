@@ -18,7 +18,7 @@ return array(
 
     /* request error */
     5001 => 'The `uid` or `account` field must be of type: string',
-    5002 => 'The `uid` field must be of type: string',
+    5002 => 'The `uid` field must be of type: number',
     5003 => 'The `account` field must be of type: string',
     5004 => 'The `identity_type` field is required',
     5005 => 'The `identifier` field is required',
@@ -29,6 +29,7 @@ return array(
     5010 => 'The `credential` length must min 6',
     5011 => 'Member create field',
     5012 => 'Member already exist',
+    5013 => 'Member auth field',
 
     /* sql error */ 
     6001 => 'data not found',
