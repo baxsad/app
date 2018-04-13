@@ -95,7 +95,8 @@ class UserController
                 $this->responseService->withErrorCode(6001);
             } else {
                 $key = $auth->credential;
-                if ($credential != $key) {
+                $uid = $auth->uid;
+                if (md5($credential) != $key) {
                     $this->responseService->withFailure();
                     $this->responseService->withErrorCode(5007);
                 } else {
@@ -103,6 +104,7 @@ class UserController
                     $future = strtotime((new \DateTime('+99 day'))->format('Y-m-d H:i:s'));
                     $server = $req->getServerParams();
                     $payload   = [
+                        "uid" => $uid,
                         "iat" => $now,
                         "exp" => $future,
                         "sub" => $server["PHP_AUTH_USER"],
