@@ -58,7 +58,7 @@ $app->add(
         	$responseService
         	    ->withFailure()
         	    ->withErrorCode(9001);
-			return $res
+			return $response
                 ->withStatus(200)
                 ->write($responseService->write());
 		}
