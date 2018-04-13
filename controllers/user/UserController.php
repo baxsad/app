@@ -102,11 +102,9 @@ class UserController
                     $now = strtotime(date("Y-m-d H:i:s"));
                     $future = strtotime((new \DateTime('+99 day'))->format('Y-m-d H:i:s'));
                     $server = $req->getServerParams();
-                    $jti = (new Base62)->encode(random_bytes(16));
                     $payload   = [
                         "iat" => $now,
                         "exp" => $future,
-                        "jti" => $jti,
                         "sub" => $server["PHP_AUTH_USER"],
                     ];
                     $token = JWT::encode($payload, "ILLBEWAITINGTILLIHEARYOUSAYIDO", "HS256");
