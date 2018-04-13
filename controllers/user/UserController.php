@@ -150,9 +150,10 @@ class UserController
             $start = microtime(true);
             $user  = $this->DB->table('user')
                 ->insert(['account' => $identifier,'username' => $identifier,]);
+            var_dump($user);die;
             $auth  = $this->DB->table('user_auths')
                 ->insert(['uid' => $user->uid,
-                          'account' => $identifier,
+                          'account' => $user->account,
                           'identity_type' => $identity_type,
                           'identifier' => $identifier,
                           'credential' => md5($credential)
