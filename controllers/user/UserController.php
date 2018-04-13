@@ -70,7 +70,7 @@ class UserController
 
    public function auth(Request $req,  Response $res, $args = []) {
 
-        $identifier_type = $req->getParam('identifier_type');
+        $identity_type   = $req->getParam('identity_type');
         $identifier      = $req->getParam('identifier');
         $credential      = $req->getParam('credential');
         if (empty($identifier_type) || !is_string($identifier_type)) {
@@ -85,7 +85,7 @@ class UserController
         } else {
             $start = microtime(true);
             $auth  = $this->DB->table('user_auths')
-                ->where('identifier_type',$identifier_type)
+                ->where('identity_type',$identity_type)
                 ->where('identifier',$identifier)
                 ->get()
                 ->first();
