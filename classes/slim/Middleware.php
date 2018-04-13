@@ -32,11 +32,12 @@ $app->add(function ($req, $res, $next) {
 $app->add(
 	new JwtAuthentication([
 		"secure" => false,
+		"secret" => "ILLBEWAITINGTILLIHEARYOUSAYIDO",
         "relaxed" => ["localhost", "127.0.0.1"],
         "environment" => ["HTTP_AUTHORIZATION", "REDIRECT_HTTP_AUTHORIZATION"],
         "algorithm" => ["HS256", "HS512", "HS384"],
         "header" => "Authorization",
-        "regexp" => "/Bearer\s+(.*)$/i",
+        "regexp" => "/OwO\s+(.*)$/i",
         "cookie" => "token",
         "attribute" => "token",
 		"logger" => $app->getContainer()['logger'],
@@ -56,6 +57,9 @@ $app->add(
                 "path"   => ["/api/members/show"]
             ])
         ],
+        "callback"  => function ($request, $response, $arguments) use ($container) {
+			$container["jwt"] = $arguments["decoded"];
+		},
         "error" => function (Request $request, Response $response, $arguments) {
         	$responseService = new ResponseService();
         	$responseService
