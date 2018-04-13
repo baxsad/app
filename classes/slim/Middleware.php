@@ -42,8 +42,7 @@ $app->add(
 		"logger" => $app->getContainer()['logger'],
 		"rules" => [
             new RequestPathRule([
-                "path"   => "/",
-                "passthrough" => ['/api/token'],
+                "path"   => ["/api/members"]
             ]),
             new RequestMethodRule([
                 "passthrough" => ["OPTIONS"]
