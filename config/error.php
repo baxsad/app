@@ -29,7 +29,7 @@ return array(
     8000 => 'custom Error',
 
     /* un authorized */
-    9001 => 'private of user information',
+    9001 => 'un authorized',
 
     /* unknown error */
     0 => 'no error',

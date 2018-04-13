@@ -50,10 +50,10 @@ $app->add(
             ]),
             new RequestMethodRule([
                 "passthrough" => ["POST"],
-                "path"   => ["/api/members/create","/api/members/auth"]
+                "path"   => ["/api/members/create","/api/members/auth","/api/members/show"]
             ])
         ],
-        "error" => function ($request, $response, $arguments) {
+        "error" => function (Request $request, Response $response, $arguments) {
         	$responseService = new ResponseService();
         	$responseService
         	    ->withFailure()
