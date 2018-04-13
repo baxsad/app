@@ -54,11 +54,13 @@ $app->add(
             ])
         ],
         "error" => function ($request, $response, $arguments) {
+        	$responseService = new ResponseService();
+        	$responseService
+        	    ->withFailure()
+        	    ->withErrorCode(9001);
 			return $res
                 ->withStatus(200)
-                ->write((new ResponseService())
-				    ->withFailure();
-                    ->withErrorCode(9001));
+                ->write($responseService->write());
 		}
     ])
 );
