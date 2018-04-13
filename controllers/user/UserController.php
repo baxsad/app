@@ -89,7 +89,7 @@ class UserController
                 $this->responseService->withErrorCode(5004);
                 break;
             }
-            if (in_array($identity_type, $scopes)) {
+            if (!in_array($identity_type, $scopes)) {
                 $this->responseService->withFailure();
                 $this->responseService->withErrorCode(5008);
                 break;
@@ -166,7 +166,7 @@ class UserController
                 $this->responseService->withErrorCode(5004);
                 break;
             }
-            if (in_array($identity_type, $scopes)) {
+            if (!in_array($identity_type, $scopes)) {
                 $this->responseService->withFailure();
                 $this->responseService->withErrorCode(5008);
                 break;
