@@ -73,10 +73,10 @@ class UserController
         $identifier_type = $request->getParam('identifier_type');
         $identifier      = $request->getParam('identifier');
         $credential      = $request->getParam('credential');
-        if (empty($identifier_type) || !is_string($identifier_type))) {
+        if (empty($identifier_type) || !is_string($identifier_type)) {
             $this->responseService->withFailure();
             $this->responseService->withErrorCode(5004);
-        } elseif (empty($identifier) || !is_string($identifier))) {
+        } elseif (empty($identifier) || !is_string($identifier)) {
             $this->responseService->withFailure();
             $this->responseService->withErrorCode(5005);
         } elseif (empty($credential)) {
