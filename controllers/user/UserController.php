@@ -78,6 +78,7 @@ class UserController
 
    public function auth(Request $req,  Response $res, $args = []) {
 
+        $scopes          = APP::$base->config->get('scopes','account');
         $identity_type   = $req->getParam('identity_type');
         $identifier      = $req->getParam('identifier');
         $credential      = $req->getParam('credential');
@@ -86,6 +87,11 @@ class UserController
             if (empty($identity_type) || !is_string($identity_type)) {
                 $this->responseService->withFailure();
                 $this->responseService->withErrorCode(5004);
+                break;
+            }
+            if (in_array($identity_type, $scopes)) {
+                $this->responseService->withFailure();
+                $this->responseService->withErrorCode(5008);
                 break;
             }
             if (empty($identifier) || !is_string($identifier)) {
@@ -149,7 +155,7 @@ class UserController
 
    public function create(Request $req,  Response $res, $args = []) {
 
-        $scopes          = APP::$base->config->get('scopes','reg');
+        $scopes          = APP::$base->config->get('scopes','account');
         $identity_type   = $req->getParam('identity_type');
         $identifier      = $req->getParam('identifier');
         $credential      = $req->getParam('credential');
