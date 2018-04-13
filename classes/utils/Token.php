@@ -16,7 +16,7 @@ class Token
             "iat" => $now,
             "exp" => $future
         ];
-        $token = JWT::encode($payload, Environment::jwtSecretKey, "HS256");
+        $token = JWT::encode($payload, Environment::$jwtSecretKey, "HS256");
         $data["token"] = $token;
         $data["expires"] = $future;
 
