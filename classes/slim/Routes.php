@@ -17,14 +17,14 @@ $app->group('/api', function () use ($app) {
 	// user
     $app->group('/members', function () use ($app) {
         $app->get('/show', UserController::class . ':get');
-        $app->post('/creat', UserController::class . ':create');
+        $app->post('/create', UserController::class . ':create');
         $app->post('/auth', UserController::class . ':auth');
-        $app->put('/:id', UserController::class . ':update');
-        $app->delete('/:id', UserController::class . ':delete');
+        $app->put('/update', UserController::class . ':update');
+        $app->delete('/delete', UserController::class . ':delete');
     });
 
     // tokens
     $app->group('/token', function () use ($app) {
-    	
+
     });
 });
