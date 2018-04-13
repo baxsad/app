@@ -68,11 +68,11 @@ class UserController
             ->write($this->responseService->write());
    }
 
-   public function create(Request $req,  Response $res, $args = []) {
+   public function auth(Request $req,  Response $res, $args = []) {
 
-        $identifier_type = $request->getParam('identifier_type');
-        $identifier      = $request->getParam('identifier');
-        $credential      = $request->getParam('credential');
+        $identifier_type = $req->getParam('identifier_type');
+        $identifier      = $req->getParam('identifier');
+        $credential      = $req->getParam('credential');
         if (empty($identifier_type) || !is_string($identifier_type)) {
             $this->responseService->withFailure();
             $this->responseService->withErrorCode(5004);
@@ -125,13 +125,13 @@ class UserController
             ->write($this->responseService->write());
    }
 
-   public function auth(Request $req,  Response $res, $args = []) {
+   public function create(Request $req,  Response $res, $args = []) {
 
         
         return $res
             ->withStatus(200)
             ->withHeader('Content-Type','application/json')
-            ->write('auth');
+            ->write('create');
    }
 
    public function update(Request $req,  Response $res, $args = []) {
