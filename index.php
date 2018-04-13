@@ -1,8 +1,6 @@
 <?php
 date_default_timezone_set('Asia/Shanghai');
-
 defined('SYS_ENV') or define('SYS_ENV', 'dev');
-defined('isMaintenance') or define('isMaintenance', false);
 
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/lib/APP.php';

@@ -28,6 +28,9 @@ return array(
     /* custom error */
     8000 => 'custom Error',
 
+    /* un authorized */
+    9001 => 'private of user information',
+
     /* unknown error */
     0 => 'no error',
 );

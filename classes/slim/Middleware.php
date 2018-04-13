@@ -5,6 +5,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 use Slim\Middleware\JwtAuthentication;
 use Slim\Middleware\JwtAuthentication\RequestMethodRule;
 use Slim\Middleware\JwtAuthentication\RequestPathRule;
+use Buff\classes\services\ResponseService;
 
 // alexberce/Slim-API
 // tuupola/slim-api-skeleton
@@ -51,6 +52,13 @@ $app->add(
                 "passthrough" => ["POST"],
                 "path"   => ["/api/members/create","/api/members/auth"]
             ])
-        ]
+        ],
+        "error" => function ($request, $response, $arguments) {
+			return $res
+                ->withStatus(200)
+                ->write((new ResponseService())
+				    ->withFailure();
+                    ->withErrorCode(9001));
+		}
     ])
 );
