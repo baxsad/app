@@ -104,7 +104,8 @@ class UserController
                         ->where('uid',$uid)
                         ->get()
                         ->first();
-                    var_dump($user);die;
+                    $userModel = new UserModel($user);
+                    $data = $userModel->toArray();
                     $now = strtotime(date("Y-m-d H:i:s"));
                     $future = strtotime((new \DateTime('+99 day'))->format('Y-m-d H:i:s'));
                     $server = $req->getServerParams();
@@ -116,8 +117,8 @@ class UserController
                     ];
                     $token = JWT::encode($payload, "ILLBEWAITINGTILLIHEARYOUSAYIDO", "HS256");
 
-                    $user["token"] = $token;
-                    $user["expires"] = $future;
+                    $data["token"] = $token;
+                    $data["expires"] = $future;
                     $this->responseService->withSuccess();
                     $this->responseService->withData($user);
                     $this->responseService->withExpend($expend);
