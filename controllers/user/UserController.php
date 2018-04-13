@@ -215,7 +215,7 @@ class UserController
 
             $userModel = new UserModel($user);
             $data = $userModel->toArray();
-            $token = Auth::create($userModel->getUID(),$user->getAccount());
+            $token = Auth::create($userModel->getUID(),$userModel->getAccount());
             $data["token"] = $token["token"];
             $data["expires"] = $token["expires"];
             $this->responseService->withSuccess();
