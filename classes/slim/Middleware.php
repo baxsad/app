@@ -2,9 +2,9 @@
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use Tuupola\Middleware\JwtAuthentication;
-use Tuupola\Middleware\JwtAuthentication\RequestMethodRule;
-use Tuupola\Middleware\JwtAuthentication\RequestPathRule;
+use Slim\Middleware\JwtAuthentication;
+use Slim\Middleware\JwtAuthentication\RequestMethodRule;
+use Slim\Middleware\JwtAuthentication\RequestPathRule;
 
 // alexberce/Slim-API
 // tuupola/slim-api-skeleton
@@ -40,13 +40,13 @@ $app->add(
 		"rules" => [
             new RequestPathRule([
                 "path"   => "/",
-                "ignore" => ['/api/token'],
+                "passthrough" => ['/api/token'],
             ]),
             new RequestMethodRule([
-                "ignore" => ["OPTIONS"]
+                "passthrough" => ["OPTIONS"]
             ]),
             new RequestMethodRule([
-                "ignore" => ["POST"],
+                "passthrough" => ["POST"],
                 "path"   => ["/api/members/create","/api/members/auth"]
             ])
         ]
