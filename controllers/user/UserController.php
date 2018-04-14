@@ -295,8 +295,13 @@ class UserController
                 $this->responseService->withErrorCode(5015);
                 break;
             }
-            $data["updates"] = $updates;
-            $data["jwt"] = $jwt;
+            $result = $this
+                ->DB
+                ->table("user")
+                ->where("uid",$jwt["uid"])
+                ->update($updates);
+            var_dump($result);die;
+
             $this->responseService->withSuccess();
             $this->responseService->withData($data);
 
