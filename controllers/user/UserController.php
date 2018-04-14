@@ -266,7 +266,7 @@ class UserController
         $private    = $req->getQueryParam('private');
         $avatar     = $req->getQueryParam('avatar');
         $bio        = $req->getQueryParam('bio');
-        $modify     = time();
+        $modify     = date();
 
         do {
             $updates = [];
