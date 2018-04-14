@@ -262,12 +262,11 @@ class UserController
 
    public function update(Request $req,  Response $res, $args = []) {
 
-        $username   = $req->getParam('username');
-        $private    = $req->getParam('private');
-        $avatar     = $req->getParam('avatar');
-        $bio        = $req->getParam('bio');
+        $username   = $req->getQueryParam('username');
+        $private    = $req->getQueryParam('private');
+        $avatar     = $req->getQueryParam('avatar');
+        $bio        = $req->getQueryParam('bio');
         $modify     = date();
-        var_dump($req);die;
 
         do {
             $updates = [];
