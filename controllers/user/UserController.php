@@ -141,7 +141,7 @@ class UserController
             }
             $userModel = new UserModel($user);
             $data = $userModel->toArray();
-            $token = Auth::create($uid,$act);
+            $token = Auth::create($uid,$account);
             $data["token"] = $token["token"];
             $data["expires"] = $token["expires"];
             $this->responseService->withSuccess();
@@ -266,7 +266,7 @@ class UserController
         $private    = $req->getQueryParam('private');
         $avatar     = $req->getQueryParam('avatar');
         $bio        = $req->getQueryParam('bio');
-        $modify     = date();
+        $modify     = time();
 
         do {
             $updates = [];
