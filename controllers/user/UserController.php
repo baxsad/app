@@ -287,7 +287,7 @@ class UserController
                 $this->responseService->withErrorCode(5014);
                 break;
             }
-            $updates["modify"] = $modify;
+            //$updates["modify"] = $modify;
 
             $jwt = $this->container["token"]->decoded;
             if (empty($jwt) || empty($jwt->uid)) {
