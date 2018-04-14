@@ -267,6 +267,7 @@ class UserController
         $avatar     = $req->getParam('avatar');
         $bio        = $req->getParam('bio');
         $modify     = date();
+        var_dump($req);die;
 
         do {
             $updates = [];
