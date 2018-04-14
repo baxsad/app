@@ -287,24 +287,41 @@ class UserController
                 $this->responseService->withErrorCode(5014);
                 break;
             }
-            //$updates["modify"] = $modify;
 
+            $start = microtime(true);
             $jwt = $this->container["token"]->decoded;
             if (empty($jwt) || empty($jwt->uid)) {
                 $this->responseService->withFailure();
                 $this->responseService->withErrorCode(5015);
                 break;
             }
-            $result = $this
+            $ok = $this
                 ->DB
                 ->table("user")
                 ->where("uid",$jwt->uid)
                 ->update($updates);
-            var_dump($result);die;
-
+            if (!$ok) {
+                $this->responseService->withFailure();
+                $this->responseService->withErrorCode(5016);
+                break;
+            }
+            $user = $this
+                ->DB
+                ->table('user')
+                ->where('uid',$jwt->uid)
+                ->get()
+                ->first();
+            if (empty($user)) {
+                $this->responseService->withFailure();
+                $this->responseService->withErrorCode(5016);
+                break;
+            }
+            $expend = (microtime(true)-$start)*1000;
+ 
+            $userModel = new UserModel($user);
             $this->responseService->withSuccess();
-            $this->responseService->withData($data);
-
+            $this->responseService->withData($userModel);
+            $this->responseService->withExpend($expend);
         } while (false);
 
         return $res
