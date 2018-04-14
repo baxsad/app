@@ -290,7 +290,7 @@ class UserController
             $updates["modify"] = $modify;
 
             $jwt = $this->container["token"]->decoded;
-            if (empty($jwt)) {
+            if (empty($jwt) || empty($jwt->uid)) {
                 $this->responseService->withFailure();
                 $this->responseService->withErrorCode(5015);
                 break;
@@ -298,7 +298,7 @@ class UserController
             $result = $this
                 ->DB
                 ->table("user")
-                ->where("uid",$jwt["uid"])
+                ->where("uid",$jwt->uid)
                 ->update($updates);
             var_dump($result);die;
 
