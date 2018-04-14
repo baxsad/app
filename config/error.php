@@ -30,6 +30,8 @@ return array(
     5011 => 'Member create field',
     5012 => 'Member already exist',
     5013 => 'Member auth field',
+    5014 => 'Member info nothing to update',
+    5015 => 'Token Invalid',
 
     /* sql error */ 
     6001 => 'data not found',

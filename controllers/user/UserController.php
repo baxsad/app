@@ -10,6 +10,7 @@ use Illuminate\Database\Capsule\Manager;
 use Buff\classes\services\ResponseService;
 use Buff\lib\data\StringEx;
 use Buff\classes\utils\Auth;
+use Buff\classes\utils\Token;
 use APP;
 
 class UserController
@@ -153,7 +154,7 @@ class UserController
             ->write($this->responseService->write());
    }
 
-   public function create(Request $req,  Response $res, $args = []) {
+   public function create(Request $req, Response $res, $args = []) {
 
         $scopes          = APP::$base->config->get('scopes','account');
         $identity_type   = $req->getParam('identity_type');
@@ -260,10 +261,49 @@ class UserController
    }
 
    public function update(Request $req,  Response $res, $args = []) {
+
+        $username   = $req->getParam('identity_type');
+        $private    = $req->getParam('identifier');
+        $avatar     = $req->getParam('credential');
+        $bio        = $req->getParam('credential');
+        $modify     = date();
+
+        do {
+            $updates = [];
+            if (!empty($username) && is_string($username)) {
+                $updates["username"] = $username;
+            }
+            if (!empty($private) && is_bool($private)) {
+                $updates["private"] = $private;
+            }
+            if (!empty($avatar) && is_string($avatar)) {
+                $updates["avatar"] = $avatar;
+            }
+            if (!empty($bio) && is_string($bio)) {
+                $updates["bio"] = $bio;
+            }
+            if (empty($updates)) {
+                $this->responseService->withFailure();
+                $this->responseService->withErrorCode(5014);
+                break;
+            }
+
+            $jwt = $this->container["token"]->decoded;
+            if (empty($jwt)) {
+                $this->responseService->withFailure();
+                $this->responseService->withErrorCode(5015);
+                break;
+            }
+            $data["updates"] = $updates;
+            $data["jwt"] = $jwt;
+            $this->responseService->withSuccess();
+            $this->responseService->withData($data);
+
+        } while (false);
+
         return $res
             ->withStatus(200)
-            ->withHeader('Content-Type','application/json')
-            ->write('update');
+            ->write($this->responseService->write());
    }
 
    public function delete(Request $req,  Response $res, $args = []) {
