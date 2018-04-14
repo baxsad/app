@@ -262,10 +262,10 @@ class UserController
 
    public function update(Request $req,  Response $res, $args = []) {
 
-        $username   = $req->getParam('identity_type');
-        $private    = $req->getParam('identifier');
-        $avatar     = $req->getParam('credential');
-        $bio        = $req->getParam('credential');
+        $username   = $req->getParam('username');
+        $private    = $req->getParam('private');
+        $avatar     = $req->getParam('avatar');
+        $bio        = $req->getParam('bio');
         $modify     = date();
 
         do {
@@ -287,6 +287,7 @@ class UserController
                 $this->responseService->withErrorCode(5014);
                 break;
             }
+            $updates["modify"] = $modify;
 
             $jwt = $this->container["token"]->decoded;
             if (empty($jwt)) {
