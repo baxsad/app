@@ -262,6 +262,7 @@ class UserController
 
    public function update(Request $req,  Response $res, $args = []) {
 
+        $account   = $req->getQueryParam('account');
         $username   = $req->getQueryParam('username');
         $private    = $req->getQueryParam('private');
         $avatar     = $req->getQueryParam('avatar');
@@ -270,6 +271,9 @@ class UserController
 
         do {
             $updates = [];
+            if (!empty($account) && is_string($account)) {
+                $updates["account"] = $account;
+            }
             if (!empty($username) && is_string($username)) {
                 $updates["username"] = $username;
             }
@@ -327,12 +331,5 @@ class UserController
         return $res
             ->withStatus(200)
             ->write($this->responseService->write());
-   }
-
-   public function delete(Request $req,  Response $res, $args = []) {
-        return $res
-            ->withStatus(200)
-            ->withHeader('Content-Type','application/json')
-            ->write('delete');
    }
 }

@@ -38,10 +38,10 @@ $app->add(
         "relaxed" => ["localhost", "127.0.0.1"],
         "environment" => ["HTTP_AUTHORIZATION", "REDIRECT_HTTP_AUTHORIZATION"],
         "algorithm" => Environment::$jwtAlgorithm,
-        "header" => "Authorization",
+        "header" => "X-Token",
         "regexp" => "/OwO\s+(.*)$/i",
-        "cookie" => "token",
-        "attribute" => "token",
+        "cookie" => "X-Cookie",
+        "attribute" => "jwt",
 		"logger" => $app->getContainer()['logger'],
 		"rules" => [
             new RequestPathRule([
@@ -59,14 +59,15 @@ $app->add(
                 "path"   => ["/api/members/show"]
             ])
         ],
-        "callback"  => function ($request, $response, $arguments) use ($container) {
-        	$container["token"]->populate($arguments["decoded"]);
-		},
+        "before" => function ($request, $arguments) use ($container) {
+            $container["token"]->populate($arguments["decoded"]);
+        },
         "error" => function (Request $request, Response $response, $arguments) {
         	$responseService = new ResponseService();
         	$responseService
         	    ->withFailure()
         	    ->withErrorCode(9001);
+            
 			return $response
                 ->withStatus(200)
                 ->write($responseService->write());

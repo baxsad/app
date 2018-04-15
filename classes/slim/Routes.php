@@ -20,7 +20,6 @@ $app->group('/api', function () use ($app) {
         $app->post('/create', UserController::class . ':create');
         $app->post('/auth', UserController::class . ':auth');
         $app->put('/update', UserController::class . ':update');
-        $app->delete('/delete', UserController::class . ':delete');
     });
 
     // tokens
