@@ -318,6 +318,11 @@ class UserController
                 ->table("user_auths")
                 ->where("uid",$jwt->uid)
                 ->update(["account" => $account]);
+            if (!$update_user_auths) {
+                $this->responseService->withFailure();
+                $this->responseService->withErrorCode(5016);
+                break;
+            }
             $user = $this
                 ->DB
                 ->table('user')

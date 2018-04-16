@@ -2,7 +2,6 @@
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use Buff\classes\utils\Token;
 
 /**
  * Slim Container
@@ -26,8 +25,4 @@ $container['db'] = function ($c) {
     $capsule->setAsGlobal();
     $capsule->bootEloquent();
     return $capsule;
-};
-
-$container["token"] = function ($container) {
-    return new Token;
 };

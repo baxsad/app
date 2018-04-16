@@ -7,7 +7,6 @@ use Slim\Middleware\JwtAuthentication\RequestMethodRule;
 use Slim\Middleware\JwtAuthentication\RequestPathRule;
 use Buff\classes\services\ResponseService;
 use Buff\classes\utils\Environment;
-use Buff\classes\utils\Token;
 
 // alexberce/Slim-API
 // tuupola/slim-api-skeleton
