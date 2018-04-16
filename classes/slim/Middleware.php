@@ -36,7 +36,6 @@ $app->add(
 		"secure" => false,
 		"secret" => Environment::$jwtSecretKey,
         "relaxed" => ["localhost", "127.0.0.1"],
-        "environment" => ["HTTP_AUTHORIZATION", "REDIRECT_HTTP_AUTHORIZATION"],
         "algorithm" => Environment::$jwtAlgorithm,
         "header" => "X-Token",
         "regexp" => "/OwO\s+(.*)$/i",
@@ -60,6 +59,7 @@ $app->add(
             ])
         ],
         "before" => function ($request, $arguments) use ($container) {
+            var_dump($arguments["decoded"]);die;
             $container["token"]->populate($arguments["decoded"]);
         },
         "error" => function (Request $request, Response $response, $arguments) {
