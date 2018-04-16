@@ -10,7 +10,7 @@ class ResponseService
 	private $right = true;
     private $code = 0;
     private $error = '';
-    private $params = []];
+    private $params = [];
     private $timestamp;
     private $time = '';
     private $content = [];
