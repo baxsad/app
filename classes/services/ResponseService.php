@@ -10,6 +10,7 @@ class ResponseService
 	private $right = true;
     private $code = 0;
     private $error = '';
+    private $params = []];
     private $timestamp;
     private $time = '';
     private $content = [];
@@ -28,9 +29,10 @@ class ResponseService
 		return $this;
 	}
 
-	public function withCode($code)
+	public function withCode($code,$params = [])
 	{
 		$this->code = $code;
+		$this->params = $params;
 
 		return $this;
 	}
@@ -84,11 +86,14 @@ class ResponseService
 
 	public function getError(): string
 	{
-        if (!empty($this->code)) {
-        	$error = APP::$base->config->get($this->code,'error');
-        	return empty($error) ? '' : $error;
+		$errtpl = $this->error;
+        if (empty($errtpl)) {
+        	$errtpl = APP::$base->config->get($this->code,'error');
+        }
+        if (empty($errtpl)) {
+        	$errtpl = '';
         }
 
-        return $this->error;
+        return vsprintf($errtpl, $this->params);
 	}
 }

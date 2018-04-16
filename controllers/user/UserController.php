@@ -39,16 +39,16 @@ class UserController
             }
             if (!empty($uid) && !is_numeric($uid)) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5002);
+                $this->responseService->withCode(5002,['uid']);
                 break;
             }
             if (!empty($account) && !is_string($account)) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5003);
+                $this->responseService->withCode(5003,['account']);
                 break;
             }
             
-            $user  = $this
+            $user = $this
                 ->DB
                 ->table('user')
                 ->where('uid',$uid)
@@ -58,7 +58,7 @@ class UserController
 
             if (empty($user)) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(6001);
+                $this->responseService->withCode(6001,['User']);
                 break;
             }
             $userModel = new UserModel($user);
@@ -89,25 +89,25 @@ class UserController
         do {
             if (empty($identity_type) || !is_string($identity_type)) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5004);
+                $this->responseService->withCode(5004,['identity_type']);
                 break;
             }
             if (!in_array($identity_type, $scopes)) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5008);
+                $this->responseService->withCode(5005,['identity_type']);
                 break;
             }
             if (empty($identifier) || !is_string($identifier)) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5005);
+                $this->responseService->withCode(5004,['identifier']);
                 break;
             }
             if (empty($credential)) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5006);
+                $this->responseService->withCode(5006,['credential']);
                 break;
             }
-            $auth  = $this
+            $auth = $this
                 ->DB
                 ->table('user_auths')
                 ->where('identity_type',$identity_type)
@@ -117,13 +117,13 @@ class UserController
 
             if (empty($auth)) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5013);
+                $this->responseService->withCode(6001,['User Auth']);
                 break;
             }
             $key = $auth->credential;
             if (md5($credential) != $key) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5007);
+                $this->responseService->withCode(5007,['credential']);
                 break;
             }
             $user = $this
@@ -134,7 +134,7 @@ class UserController
                 ->first();
             if (empty($user)) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5013);
+                $this->responseService->withCode(6001,['User']);
                 break;
             }
             $userModel = new UserModel($user);
@@ -147,7 +147,7 @@ class UserController
                 ->update(["token" => $token["token"]]);
             if (!$update_token) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5017);
+                $this->responseService->withCode(6002,['User -> token']);
                 break;
             }
 
@@ -176,32 +176,32 @@ class UserController
         do {
             if (empty($identity_type) || !is_string($identity_type)) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5004);
+                $this->responseService->withCode(5004,['identity_type']);
                 break;
             }
             if (!in_array($identity_type, $scopes)) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5008);
+                $this->responseService->withCode(5005,['identity_type']);
                 break;
             }
             if (empty($identifier) || !is_string($identifier)) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5005);
+                $this->responseService->withCode(5004,['identifier']);
                 break;
             }
             if (StringEx::length($identifier) < 6) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5009);
+                $this->responseService->withCode(5008,['identifier']);
                 break;
             }
             if (empty($credential)) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5006);
+                $this->responseService->withCode(5006,['credential']);
                 break;
             }
             if (StringEx::length($credential) < 6) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5010);
+                $this->responseService->withCode(5008,['identifier']);
                 break;
             }
             if (empty($account)) {
@@ -215,7 +215,7 @@ class UserController
                 ->first();
             if (!empty($find)) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5012);
+                $this->responseService->withCode(7002);
                 break;
             }
             $creat_user = $this
@@ -224,7 +224,7 @@ class UserController
                 ->insert(['account' => $account,'username' => $identifier]);
             if (!$creat_user) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5011);
+                $this->responseService->withCode(6003,['User']);
                 break;
             }
             $user = $this
@@ -234,13 +234,8 @@ class UserController
                 ->get()
                 ->first();
             if (empty($user)) {
-                $this
-                    ->DB
-                    ->table('user')
-                    ->where('account',$account)
-                    ->delete();
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5011);
+                $this->responseService->withCode(6001,['User']);
                 break;
             }
             $creat_user_auth = $this
@@ -253,7 +248,7 @@ class UserController
                         ]);
             if (!$creat_user_auth) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5011);
+                $this->responseService->withCode(6003,['User Auth']);
                 break;
             }
 
@@ -302,14 +297,14 @@ class UserController
             }
             if (empty($updates)) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5014);
+                $this->responseService->withCode(5001);
                 break;
             }
 
             $jwt = $req->getAttribute("token");
             if (empty($jwt) || empty($jwt->uid)) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5015);
+                $this->responseService->withCode(7003);
                 break;
             }
             $update_user_info = $this
@@ -319,7 +314,7 @@ class UserController
                 ->update($updates);
             if (!$update_user_info) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5016);
+                $this->responseService->withCode(6002,['User info']);
                 break;
             }
             if (!empty($account)) {
@@ -331,7 +326,7 @@ class UserController
                     ->update(["identifier" => $account]);
                 if (!$update_user_auths) {
                     $this->responseService->withFailure();
-                    $this->responseService->withCode(5016);
+                    $this->responseService->withCode(6002,['User Auth -> identifier']);
                     break;
                 }
             }
@@ -343,7 +338,7 @@ class UserController
                 ->first();
             if (empty($user)) {
                 $this->responseService->withFailure();
-                $this->responseService->withCode(5016);
+                $this->responseService->withCode(6001,['User']);
                 break;
             }
  

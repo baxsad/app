@@ -17,35 +17,30 @@ return array(
     4005 => 'Redis Connect Error',
 
     /* request error */
-    5001 => 'The `uid` or `account` field must be of type: string',
-    5002 => 'The `uid` field must be of type: number',
-    5003 => 'The `account` field must be of type: string',
-    5004 => 'The `identity_type` field is required',
-    5005 => 'The `identifier` field is required',
-    5006 => 'The `credential` field is required',
-    5007 => 'The `credential` not allow',
-    5008 => 'The `identity_type` not allow',
-    5009 => 'The `identifier` length must min 6',
-    5010 => 'The `credential` length must min 6',
-    5011 => 'Member create field',
-    5012 => 'Member already exist',
-    5013 => 'Member auth field',
-    5014 => 'Member info nothing to update',
-    5015 => 'Token Invalid',
-    5016 => 'Member info modity field',
-    5017 => 'Token update field',
+    5001 => 'Missing important parameters',
+    5002 => 'Request parameter [%s] must be of type: number',
+    5003 => 'Request parameter [%s] must be of type: string',
+    5004 => 'Request parameter [%s] missing or type error',
+    5005 => 'Request parameter [%s] value not allow',
+    5006 => 'Request parameter [%s] value not null',
+    5007 => 'Request parameter [%s] value verification failed',
+    5008 => 'Request parameter [%s] value data length failed',
 
-    /* sql error */ 
-    6001 => 'data not found',
+    /* Database error */ 
+    6001 => 'Database not found data [%s]',
+    6002 => 'Database update value [%s] failed',
+    6003 => 'Database insert value [%s] failed',
 
     /* bussiness error */
-    7001 => 'private of user information',
+    7001 => 'Member information is private',
+    7002 => 'Member already exist',
+    7003 => 'Member Token Invalid',
 
     /* custom error */
     8000 => 'custom Error',
 
     /* un authorized */
-    9001 => 'Token Invalid',
+    9001 => 'JSON Web Token Invalid',
 
     /* unknown error */
     0 => 'no error',
