@@ -58,10 +58,10 @@ $app->add(
             ])
         ],
         "before" => function ($request, $arguments) use ($container) {
-            echo "before";die;
+            
         },
         "after" => function ($request, $arguments) use ($container) {
-            echo "after";die;
+            
         },
         "error" => function (Request $request, Response $response, $arguments) {
         	$responseService = new ResponseService();
