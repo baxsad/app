@@ -42,6 +42,6 @@ return array(
     /* un authorized */
     9001 => 'JSON Web Token Invalid',
 
-    /* unknown error */
-    0 => 'no error',
+    /* nothing */
+    0 => '',
 );
