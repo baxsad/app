@@ -237,7 +237,6 @@ class UserController
                 ->DB->table('user_auths')
                 ->insert([
                     'uid' => $user->uid,
-                    'account' => $user->account,
                     'identity_type' => $identity_type,
                     'identifier' => $identifier,
                     'credential' => md5($credential)
@@ -313,15 +312,18 @@ class UserController
                 $this->responseService->withErrorCode(5016);
                 break;
             }
-            $update_user_auths = $this
-                ->DB
-                ->table("user_auths")
-                ->where("uid",$jwt->uid)
-                ->update(["account" => $account]);
-            if (!$update_user_auths) {
-                $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5016);
-                break;
+            if (!empty($account)) {
+                $update_user_auths = $this
+                    ->DB
+                    ->table("user_auths")
+                    ->where("uid",$jwt->uid)
+                    ->where("identity_type","account")
+                    ->update(["identifier" => $account]);
+                if (!$update_user_auths) {
+                    $this->responseService->withFailure();
+                    $this->responseService->withErrorCode(5016);
+                    break;
+                }
             }
             $user = $this
                 ->DB
