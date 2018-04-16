@@ -40,7 +40,7 @@ $app->add(
         "header" => "X-Token",
         "regexp" => "/OwO\s+(.*)$/i",
         "cookie" => "X-Cookie",
-        "attribute" => "jwt",
+        "attribute" => "token",
 		"logger" => $app->getContainer()['logger'],
 		"rules" => [
             new RequestPathRule([
@@ -59,8 +59,10 @@ $app->add(
             ])
         ],
         "before" => function ($request, $arguments) use ($container) {
-            var_dump($arguments["decoded"]);die;
-            $container["token"]->populate($arguments["decoded"]);
+            
+        },
+        "after" => function ($request, $arguments) use ($container) {
+            
         },
         "error" => function (Request $request, Response $response, $arguments) {
         	$responseService = new ResponseService();
