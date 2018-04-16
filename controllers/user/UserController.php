@@ -317,7 +317,7 @@ class UserController
                 ->DB
                 ->table("user_auths")
                 ->where("uid",$jwt->uid)
-                ->update(["account" => $account]]);
+                ->update(["account" => $account]);
             $user = $this
                 ->DB
                 ->table('user')
