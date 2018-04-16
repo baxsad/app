@@ -9,7 +9,7 @@ class ResponseService
 {
 	private $right = true;
     private $code = 0;
-    private $error = '';
+    private $msg = '';
     private $params = [];
     private $timestamp;
     private $time = '';
@@ -37,9 +37,9 @@ class ResponseService
 		return $this;
 	}
 
-	public function withError($error)
+	public function withMsg($msg)
 	{
-		$this->error = $error;
+		$this->msg = $msg;
 
 		return $this;
 	}
@@ -76,7 +76,7 @@ class ResponseService
 		$this->timestamp = time();
 		$this->responseData['h']['r'] = $this->right;
 		$this->responseData['h']['c'] = $this->code;
-		$this->responseData['h']['e'] = $this->getError();
+		$this->responseData['h']['m'] = $this->getMsg();
 		$this->responseData['h']['s'] = $this->timestamp;
 		$this->responseData['h']['t'] = $this->time;
 		$this->responseData['c'] = $this->content;
@@ -84,16 +84,16 @@ class ResponseService
 		return json_encode($this->responseData, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 	}
 
-	public function getError(): string
+	public function getMsg(): string
 	{
-		$errtpl = $this->error;
-        if (empty($errtpl)) {
-        	$errtpl = APP::$base->config->get($this->code,'error');
+		$msgtpl = $this->msg;
+        if (empty($msgtpl)) {
+        	$msgtpl = APP::$base->config->get($this->code,'error');
         }
         if (empty($errtpl)) {
-        	$errtpl = '';
+        	$msgtpl = '';
         }
 
-        return vsprintf($errtpl, $this->params);
+        return vsprintf($msgtpl, $this->params);
 	}
 }
