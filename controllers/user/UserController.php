@@ -120,7 +120,7 @@ class UserController
                 $this->responseService->withErrorCode(5013);
                 break;
             }
-            $key     = $auth->credential;
+            $key = $auth->credential;
             if (md5($credential) != $key) {
                 $this->responseService->withFailure();
                 $this->responseService->withErrorCode(5007);
@@ -129,7 +129,7 @@ class UserController
             $user = $this
                 ->DB
                 ->table('user')
-                ->where('uid',$uid)
+                ->where('uid',$auth->uid)
                 ->get()
                 ->first();
             if (empty($user)) {
