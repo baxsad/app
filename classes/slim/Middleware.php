@@ -37,7 +37,7 @@ $app->add(
         "relaxed" => ["localhost", "127.0.0.1"],
         "algorithm" => Environment::$jwtAlgorithm,
         "header" => "X-Token",
-        "regexp" => "/OwO\s+(.*)$/i",
+        "regexp" => "/(.*)/",
         "cookie" => "X-Cookie",
         "attribute" => "token",
 		"logger" => $app->getContainer()['logger'],
