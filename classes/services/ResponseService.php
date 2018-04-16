@@ -7,67 +7,59 @@ use APP;
 
 class ResponseService
 {
-    private $success = true;
-    private $data = [];
-    private $errorCode = 0;
-    private $errorMessage;
-    private $responseData = [];
-    private $message;
-    private $expend;
+	private $right = true;
+    private $code = 0;
+    private $error = '';
+    private $timestamp;
+    private $time = '';
+    private $content;
 
     public function withSuccess()
 	{
-		$this->success = true;
+		$this->right = true;
 
 		return $this;
 	}
 
 	public function withFailure()
 	{
-		$this->success = false;
+		$this->right = false;
 
 		return $this;
 	}
 
-	public function withErrorCode($errorCode)
+	public function withCode($code)
 	{
-		$this->errorCode = $errorCode;
+		$this->code = $code;
 
 		return $this;
 	}
 
-	public function withErrorMessage($errorMessage)
+	public function withError($error)
 	{
-		$this->errorMessage = $errorMessage;
+		$this->error = $error;
 
 		return $this;
 	}
 
-	public function withData($data = [])
+	public function withContent($data = [])
 	{
-		if (!is_array($data) && !$data instanceof ResponseModelInterface) {
-			throw new \Exception('Malformed response data.');
+		if (!is_array($content) && !$content instanceof ResponseModelInterface) {
+			throw new \Exception('Malformed response content.');
 		}
 		
-		if ($data instanceof ResponseModelInterface) {
-			$data = $data->expose();
+		if ($content instanceof ResponseModelInterface) {
+			$content = $content->expose();
 		}
 		
-		$this->data = $data;
+		$this->content = $content;
 		
 		return $this;
 	}
 
-	public function withMessage($message)
+	public function withTime($time)
 	{
-		$this->message = (string) $message;
-		
-		return $this;
-	}
-
-	public function withExpend($expend)
-	{
-		$this->expend = (string) $expend . 'ms';
+		$this->time = (string) $time;
 		
 		return $this;
 	}
@@ -79,35 +71,24 @@ class ResponseService
 
 	public function getResponse()
 	{
-		$this->responseData['success'] = $this->success;
-		$this->responseData['message'] = $this->getMessage();
-		$this->responseData['data']    = $this->data;
-		$this->responseData['error']['errorCode'] = $this->errorCode;
-		$this->responseData['error']['errorMessage'] = $this->getErrorMessage();
-		$this->responseData['date']    = time();
-		if (!empty($this->expend)) {
-			$this->responseData['expend']  = $this->expend;
-		}
+		$this->timestamp = time();
+		$this->responseData['h']['r'] = $this->right;
+		$this->responseData['h']['c'] = $this->code;
+		$this->responseData['h']['e'] = $this->getError();
+		$this->responseData['h']['s'] = $this->timestamp;
+		$this->responseData['h']['t'] = $this->time;
+		$this->responseData['c'] = $this->content;
 
 		return json_encode($this->responseData, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 	}
 
-	public function getMessage(): string
+	public function getError(): string
 	{
-        if (empty($this->message)) {
-        	return $this->success ? 'success!' : 'failure!';
+        if (empty($this->code)) {
+        	$error = APP::$base->config->get($this->code,'error');
+        	return empty($error) ? '' : $error;
         }
 
-        return $this->message;
-	}
-
-	public function getErrorMessage(): string
-	{
-        if (empty($this->errorMessage)) {
-        	$error = APP::$base->config->get($this->errorCode,'error');
-        	return empty($error) ? 'unknow error' : $error;
-        }
-
-        return $this->errorMessage;
+        return $this->error;
 	}
 }

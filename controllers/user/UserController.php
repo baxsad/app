@@ -30,23 +30,24 @@ class UserController
         $uid     = $req->getQueryParam('uid',$default = '');
         $account = $req->getQueryParam('account',$default = '');
 
+        $start = microtime(true);
         do {
             if (empty($uid) && empty($account)) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5001);
+                $this->responseService->withCode(5001);
                 break;
             }
             if (!empty($uid) && !is_numeric($uid)) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5002);
+                $this->responseService->withCode(5002);
                 break;
             }
             if (!empty($account) && !is_string($account)) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5003);
+                $this->responseService->withCode(5003);
                 break;
             }
-            $start = microtime(true);
+            
             $user  = $this
                 ->DB
                 ->table('user')
@@ -54,23 +55,23 @@ class UserController
                 ->orWhere('account',$account)
                 ->get()
                 ->first();
-            $expend = (microtime(true)-$start)*1000;
 
             if (empty($user)) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(6001);
+                $this->responseService->withCode(6001);
                 break;
             }
             $userModel = new UserModel($user);
             if ($userModel->getPrivate() == true) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(7001);
+                $this->responseService->withCode(7001);
                 break;
             }
             $this->responseService->withSuccess();
-            $this->responseService->withData($userModel);
-            $this->responseService->withExpend($expend);
+            $this->responseService->withContent($userModel);
         } while (false);
+        $expend = (microtime(true)-$start)*1000;
+        $this->responseService->withTime($expend);
 
         return $res
             ->withStatus(200)
@@ -84,28 +85,28 @@ class UserController
         $identifier      = $req->getParam('identifier');
         $credential      = $req->getParam('credential');
 
+        $start = microtime(true);
         do {
             if (empty($identity_type) || !is_string($identity_type)) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5004);
+                $this->responseService->withCode(5004);
                 break;
             }
             if (!in_array($identity_type, $scopes)) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5008);
+                $this->responseService->withCode(5008);
                 break;
             }
             if (empty($identifier) || !is_string($identifier)) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5005);
+                $this->responseService->withCode(5005);
                 break;
             }
             if (empty($credential)) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5006);
+                $this->responseService->withCode(5006);
                 break;
             }
-            $start = microtime(true);
             $auth  = $this
                 ->DB
                 ->table('user_auths')
@@ -113,17 +114,16 @@ class UserController
                 ->where('identifier',$identifier)
                 ->get()
                 ->first();
-            $expend = (microtime(true)-$start)*1000;
 
             if (empty($auth)) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5013);
+                $this->responseService->withCode(5013);
                 break;
             }
             $key = $auth->credential;
             if (md5($credential) != $key) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5007);
+                $this->responseService->withCode(5007);
                 break;
             }
             $user = $this
@@ -134,7 +134,7 @@ class UserController
                 ->first();
             if (empty($user)) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5013);
+                $this->responseService->withCode(5013);
                 break;
             }
             $userModel = new UserModel($user);
@@ -147,17 +147,18 @@ class UserController
                 ->update(["token" => $token["token"]]);
             if (!$update_token) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5017);
+                $this->responseService->withCode(5017);
                 break;
             }
 
             $data["token"] = $token["token"];
             $data["expires"] = $token["expires"];
             $this->responseService->withSuccess();
-            $this->responseService->withData($data);
-            $this->responseService->withExpend($expend);
+            $this->responseService->withContent($data);
         } while (false);
-
+        $expend = (microtime(true)-$start)*1000;
+        $this->responseService->withTime($expend);
+        
         return $res
             ->withStatus(200)
             ->write($this->responseService->write());
@@ -170,42 +171,42 @@ class UserController
         $identifier      = $req->getParam('identifier');
         $credential      = $req->getParam('credential');
         $account         = $req->getParam('account');
-
+        
+        $start = microtime(true);
         do {
             if (empty($identity_type) || !is_string($identity_type)) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5004);
+                $this->responseService->withCode(5004);
                 break;
             }
             if (!in_array($identity_type, $scopes)) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5008);
+                $this->responseService->withCode(5008);
                 break;
             }
             if (empty($identifier) || !is_string($identifier)) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5005);
+                $this->responseService->withCode(5005);
                 break;
             }
             if (StringEx::length($identifier) < 6) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5009);
+                $this->responseService->withCode(5009);
                 break;
             }
             if (empty($credential)) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5006);
+                $this->responseService->withCode(5006);
                 break;
             }
             if (StringEx::length($credential) < 6) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5010);
+                $this->responseService->withCode(5010);
                 break;
             }
             if (empty($account)) {
                 $account = "OYEid_".$identifier;
             }
-            $start = microtime(true);
             $find = $this
                 ->DB
                 ->table('user')
@@ -214,7 +215,7 @@ class UserController
                 ->first();
             if (!empty($find)) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5012);
+                $this->responseService->withCode(5012);
                 break;
             }
             $creat_user = $this
@@ -223,7 +224,7 @@ class UserController
                 ->insert(['account' => $account,'username' => $identifier]);
             if (!$creat_user) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5011);
+                $this->responseService->withCode(5011);
                 break;
             }
             $user = $this
@@ -239,7 +240,7 @@ class UserController
                     ->where('account',$account)
                     ->delete();
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5011);
+                $this->responseService->withCode(5011);
                 break;
             }
             $creat_user_auth = $this
@@ -252,10 +253,9 @@ class UserController
                         ]);
             if (!$creat_user_auth) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5011);
+                $this->responseService->withCode(5011);
                 break;
             }
-            $expend = (microtime(true)-$start)*1000;
 
             $userModel = new UserModel($user);
             $data = $userModel->toArray();
@@ -263,9 +263,10 @@ class UserController
             $data["token"] = $token["token"];
             $data["expires"] = $token["expires"];
             $this->responseService->withSuccess();
-            $this->responseService->withData($data);
-            $this->responseService->withExpend($expend);
+            $this->responseService->withContent($data);
         } while (false);
+        $expend = (microtime(true)-$start)*1000;
+        $this->responseService->withTime($expend);
 
         return $res
             ->withStatus(200)
@@ -281,6 +282,7 @@ class UserController
         $bio        = $req->getQueryParam('bio');
         $modify     = strtotime(date("Y-m-d H:i:s"));
 
+        $start = microtime(true);
         do {
             $updates = [];
             if (!empty($account) && is_string($account)) {
@@ -300,15 +302,14 @@ class UserController
             }
             if (empty($updates)) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5014);
+                $this->responseService->withCode(5014);
                 break;
             }
 
-            $start = microtime(true);
             $jwt = $req->getAttribute("token");
             if (empty($jwt) || empty($jwt->uid)) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5015);
+                $this->responseService->withCode(5015);
                 break;
             }
             $update_user_info = $this
@@ -318,7 +319,7 @@ class UserController
                 ->update($updates);
             if (!$update_user_info) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5016);
+                $this->responseService->withCode(5016);
                 break;
             }
             if (!empty($account)) {
@@ -330,7 +331,7 @@ class UserController
                     ->update(["identifier" => $account]);
                 if (!$update_user_auths) {
                     $this->responseService->withFailure();
-                    $this->responseService->withErrorCode(5016);
+                    $this->responseService->withCode(5016);
                     break;
                 }
             }
@@ -342,16 +343,16 @@ class UserController
                 ->first();
             if (empty($user)) {
                 $this->responseService->withFailure();
-                $this->responseService->withErrorCode(5016);
+                $this->responseService->withCode(5016);
                 break;
             }
-            $expend = (microtime(true)-$start)*1000;
  
             $userModel = new UserModel($user);
             $this->responseService->withSuccess();
-            $this->responseService->withData($userModel);
-            $this->responseService->withExpend($expend);
+            $this->responseService->withContent($userModel);
         } while (false);
+        $expend = (microtime(true)-$start)*1000;
+        $this->responseService->withTime($expend);
 
         return $res
             ->withStatus(200)
