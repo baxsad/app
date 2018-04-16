@@ -298,6 +298,7 @@ class UserController
 
             $start = microtime(true);
             $jwt = $this->container["token"]->decoded;
+            var_dump($jwt);die;
             if (empty($jwt) || empty($jwt->uid)) {
                 $this->responseService->withFailure();
                 $this->responseService->withErrorCode(5015);
