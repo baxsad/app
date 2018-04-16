@@ -4,7 +4,8 @@ namespace Buff\classes\utils;
 
 class Environment
 {
-	public static $jwtSecretKey = <<<EOD
+	public static $jwtSecretKey = 
+<<<EOD
 -----BEGIN SECRET KEY-----
 5ZCO5p2l5oiR55+l6YGT5LqG77yM6YKj5LuO5p2l5LiN5piv5oiR55qE6Iqx77yM
 5oiR5Y+q5piv5oGw5aW96YCU57uP5LqG5aW555qE57u95pS+44CCb3llLm1vZQ==
