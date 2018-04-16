@@ -67,7 +67,7 @@ $app->add(
         	$responseService = new ResponseService();
         	$responseService
         	    ->withFailure()
-        	    ->withErrorCode(9001);
+        	    ->withCode(9001);
             
 			return $response
                 ->withStatus(200)
