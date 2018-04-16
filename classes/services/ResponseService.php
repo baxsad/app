@@ -90,7 +90,7 @@ class ResponseService
         if (empty($msgtpl)) {
         	$msgtpl = APP::$base->config->get($this->code,'error');
         }
-        if (empty($errtpl)) {
+        if (empty($msgtpl)) {
         	$msgtpl = '';
         }
 
