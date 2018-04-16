@@ -144,7 +144,7 @@ class UserController
                 ->DB
                 ->table("user")
                 ->where("uid",$auth->uid)
-                ->update(["token" => $token]);
+                ->update(["token" => $token["token"]]);
             if (!$update_token) {
                 $this->responseService->withFailure();
                 $this->responseService->withErrorCode(5017);
