@@ -48,5 +48,4 @@ class Auth
     {
         return substr(strtr(base64_encode(hex2bin(RandomToken(32))), '+', '.'), 0, 44);
     }
-
 }
