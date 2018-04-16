@@ -160,6 +160,7 @@ class UserController
         $identity_type   = $req->getParam('identity_type');
         $identifier      = $req->getParam('identifier');
         $credential      = $req->getParam('credential');
+        $account         = $req->getParam('account');
 
         do {
             if (empty($identity_type) || !is_string($identity_type)) {
@@ -192,11 +193,14 @@ class UserController
                 $this->responseService->withErrorCode(5010);
                 break;
             }
+            if (empty($account)) {
+                $account = "OYEid_".$identifier;
+            }
             $start = microtime(true);
             $find = $this
                 ->DB
                 ->table('user')
-                ->where('account',$identifier)
+                ->where('account',$account)
                 ->get()
                 ->first();
             if (!empty($find)) {
@@ -204,11 +208,11 @@ class UserController
                 $this->responseService->withErrorCode(5012);
                 break;
             }
-            $ok = $this
+            $creat_user = $this
                 ->DB
                 ->table('user')
-                ->insert(['account' => $identifier,'username' => $identifier]);
-            if (!$ok) {
+                ->insert(['account' => $account,'username' => $identifier]);
+            if (!$creat_user) {
                 $this->responseService->withFailure();
                 $this->responseService->withErrorCode(5011);
                 break;
@@ -216,20 +220,20 @@ class UserController
             $user = $this
                 ->DB
                 ->table('user')
-                ->where('account',$identifier)
+                ->where('account',$account)
                 ->get()
                 ->first();
             if (empty($user)) {
                 $this
                     ->DB
                     ->table('user')
-                    ->where('account',$identifier)
+                    ->where('account',$account)
                     ->delete();
                 $this->responseService->withFailure();
                 $this->responseService->withErrorCode(5011);
                 break;
             }
-            $ok = $this
+            $creat_user_auth = $this
                 ->DB->table('user_auths')
                 ->insert([
                     'uid' => $user->uid,
@@ -238,7 +242,7 @@ class UserController
                     'identifier' => $identifier,
                     'credential' => md5($credential)
                         ]);
-            if (!$ok) {
+            if (!$creat_user_auth) {
                 $this->responseService->withFailure();
                 $this->responseService->withErrorCode(5011);
                 break;
@@ -262,7 +266,7 @@ class UserController
 
    public function update(Request $req,  Response $res, $args = []) {
 
-        $account   = $req->getQueryParam('account');
+        $account    = $req->getQueryParam('account');
         $username   = $req->getQueryParam('username');
         $private    = $req->getQueryParam('private');
         $avatar     = $req->getQueryParam('avatar');
@@ -299,16 +303,21 @@ class UserController
                 $this->responseService->withErrorCode(5015);
                 break;
             }
-            $ok = $this
+            $update_user_info = $this
                 ->DB
                 ->table("user")
                 ->where("uid",$jwt->uid)
                 ->update($updates);
-            if (!$ok) {
+            if (!$update_user_info) {
                 $this->responseService->withFailure();
                 $this->responseService->withErrorCode(5016);
                 break;
             }
+            $update_user_auths = $this
+                ->DB
+                ->table("user_auths")
+                ->where("uid",$jwt->uid)
+                ->update(["account" => $account]]);
             $user = $this
                 ->DB
                 ->table('user')
