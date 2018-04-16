@@ -121,8 +121,6 @@ class UserController
                 break;
             }
             $key     = $auth->credential;
-            $uid     = $auth->uid;
-            $account = $auth->account;
             if (md5($credential) != $key) {
                 $this->responseService->withFailure();
                 $this->responseService->withErrorCode(5007);
@@ -141,7 +139,7 @@ class UserController
             }
             $userModel = new UserModel($user);
             $data = $userModel->toArray();
-            $token = Auth::create($uid,$account);
+            $token = Auth::create($user->uid,$user->account);
             $data["token"] = $token["token"];
             $data["expires"] = $token["expires"];
             $this->responseService->withSuccess();
