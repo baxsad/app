@@ -44,7 +44,7 @@ return array(
     8000 => 'custom Error',
 
     /* un authorized */
-    9001 => 'un authorized',
+    9001 => 'Token Invalid',
 
     /* unknown error */
     0 => 'no error',
