@@ -10,6 +10,7 @@ class UserModel extends ResponseModel implements ResponseModelInterface
 {
 	private $uid;
 	private $account;
+	private $token;
 	private $username;
 	private $avatar;
 	private $bio;
@@ -21,6 +22,7 @@ class UserModel extends ResponseModel implements ResponseModelInterface
 	{
 		$this->uid        = (int)    $dao->uid;
 		$this->account    = (string) $dao->account;
+		$this->token      = (string) $dao->token;
 		$this->username   = (string) $dao->username;
 		$this->avatar     = (string) $dao->avatar;
 		$this->bio        = (string) $dao->bio;
@@ -37,6 +39,11 @@ class UserModel extends ResponseModel implements ResponseModelInterface
 	public function getAccount(): string
 	{
 		return $this->account;
+	}
+
+	public function getToken(): string
+	{
+		return $this->token;
 	}
 
 	public function getUserName(): string

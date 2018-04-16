@@ -140,6 +140,17 @@ class UserController
             $userModel = new UserModel($user);
             $data = $userModel->toArray();
             $token = Auth::create($user->uid,$user->account);
+            $update_token = $this
+                ->DB
+                ->table("user")
+                ->where("uid",$auth->uid)
+                ->update(["token" => $token]);
+            if (!$update_token) {
+                $this->responseService->withFailure();
+                $this->responseService->withErrorCode(5017);
+                break;
+            }
+
             $data["token"] = $token["token"];
             $data["expires"] = $token["expires"];
             $this->responseService->withSuccess();

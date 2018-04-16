@@ -33,6 +33,7 @@ return array(
     5014 => 'Member info nothing to update',
     5015 => 'Token Invalid',
     5016 => 'Member info modity field',
+    5017 => 'Token update field',
 
     /* sql error */ 
     6001 => 'data not found',
