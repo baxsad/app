@@ -42,7 +42,7 @@ class ResponseService
 		return $this;
 	}
 
-	public function withContent($data = [])
+	public function withContent($content = [])
 	{
 		if (!is_array($content) && !$content instanceof ResponseModelInterface) {
 			throw new \Exception('Malformed response content.');
