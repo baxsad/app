@@ -12,7 +12,7 @@ class ResponseService
     private $error = '';
     private $timestamp;
     private $time = '';
-    private $content;
+    private $content = [];
 
     public function withSuccess()
 	{
