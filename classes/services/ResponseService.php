@@ -84,7 +84,7 @@ class ResponseService
 
 	public function getError(): string
 	{
-        if (empty($this->code)) {
+        if (!empty($this->code)) {
         	$error = APP::$base->config->get($this->code,'error');
         	return empty($error) ? '' : $error;
         }
