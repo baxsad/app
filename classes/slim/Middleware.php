@@ -2,9 +2,9 @@
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use Slim\Middleware\JwtAuthentication\RequestMethodRule;
-use Slim\Middleware\JwtAuthentication\RequestPathRule;
 use Tuupola\Middleware\JwtAuthentication;
+use Tuupola\Middleware\JwtAuthentication\RequestMethodRule;
+use Tuupola\Middleware\JwtAuthentication\RequestPathRule;
 use Buff\classes\services\ResponseService;
 use Buff\classes\utils\Environment;
 use Buff\classes\middlewares\PmsAuthentication;
