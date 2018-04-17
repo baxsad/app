@@ -7,13 +7,14 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use Buff\classes\services\ResponseService;
 use Buff\classes\utils\Environment;
+use APP;
 
 final class PmsAuthentication
 {
 	public function __invoke($request, $response, $next)
     {
-
-    	if (!Environment::$enablePms) {
+        $cof = APP::$base->config->get('pms');
+    	if (!$cof['enable']) {
     		$response = $next($request, $response);
             return $response;
     	}

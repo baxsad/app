@@ -25,5 +25,8 @@ return array(
             'level' => Monolog\Logger::DEBUG,
             'path' => __DIR__ . '/../logs/app.log',
 	    )
+	],
+	'pms' => [
+		'enable' => false
 	]
 );
