@@ -78,26 +78,6 @@ $app->add(
 );
 
 $app->add(
-    new PmsAuthentication([
-        "header" => "X-Sign",
-        "regexp" => "/(.*)/",
-        "attribute" => "sign",
-        "before" => function ($request, $arguments) use ($container) {
-            
-        },
-        "after" => function ($response, $arguments) use ($container) {
-            
-        },
-        "error" => function (Request $request, Response $response, $arguments) {
-            $responseService = new ResponseService();
-            $responseService
-                ->withFailure()
-                ->withCode(10001);
-            
-            return $response
-                ->withStatus(200)
-                ->write($responseService->write());
-        }
-    ])
+    new PmsAuthentication()
 );
 
