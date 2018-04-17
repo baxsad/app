@@ -302,16 +302,16 @@ class UserController
             }
 
             $jwt = $req->getAttribute("token");
-            var_dump($jwt);die;
-            if (empty($jwt) || empty($jwt->uid)) {
+            if (empty($jwt) || empty($jwt['uid']])) {
                 $this->responseService->withFailure();
                 $this->responseService->withCode(7003);
                 break;
             }
+            $jwt_uid = $jwt['uid'];
             $update_user_info = $this
                 ->DB
                 ->table("user")
-                ->where("uid",$jwt->uid)
+                ->where("uid",$jwt_uid)
                 ->update($updates);
             if (!$update_user_info) {
                 $this->responseService->withFailure();
@@ -322,7 +322,7 @@ class UserController
                 $update_user_auths = $this
                     ->DB
                     ->table("user_auths")
-                    ->where("uid",$jwt->uid)
+                    ->where("uid",$jwt_uid)
                     ->where("identity_type","account")
                     ->update(["identifier" => $account]);
                 if (!$update_user_auths) {
@@ -334,7 +334,7 @@ class UserController
             $user = $this
                 ->DB
                 ->table('user')
-                ->where('uid',$jwt->uid)
+                ->where('uid',$jwt_uid)
                 ->get()
                 ->first();
             if (empty($user)) {
