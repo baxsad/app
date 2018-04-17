@@ -47,14 +47,14 @@ $app->add(
                 "path"   => ["/api/members"]
             ]),
             new RequestMethodRule([
-                "passthrough" => ["OPTIONS"]
+                "ignore" => ["OPTIONS"]
             ]),
             new RequestMethodRule([
-                "passthrough" => ["POST"],
+                "ignore" => ["POST"],
                 "path"   => ["/api/members/create","/api/members/auth"]
             ]),
             new RequestMethodRule([
-                "passthrough" => ["GET"],
+                "ignore" => ["GET"],
                 "path"   => ["/api/members/show"]
             ])
         ],
