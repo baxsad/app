@@ -59,7 +59,7 @@ $app->add(
             ])
         ],
         "before" => function ($request, $arguments) use ($container) {
-            
+            var_dump($arguments['decode']);die;
         },
         "after" => function ($response, $arguments) use ($container) {
             
