@@ -11,9 +11,7 @@ final class PmsAuthentication
 	public function __invoke($request, $response, $next)
     {
 
-        $queryParams = $request->getQueryParams();
-        $bodyParams = $request->getParams();
-        $params = array_merge($queryParams,$bodyParams);
+        $params = $request->getParams();
         var_dump($params);die;
 
         $response = $next($request, $response);
