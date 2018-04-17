@@ -47,6 +47,6 @@ class Auth
 
     private static function Salt()
     {
-        return substr(strtr(base64_encode(hex2bin(RandomToken(32))), '+', '.'), 0, 44);
+        return substr(strtr(base64_encode(hex2bin(Auth::RandomToken(32))), '+', '.'), 0, 44);
     }
 }
