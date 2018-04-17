@@ -47,6 +47,9 @@ class UserController
                 $this->responseService->withCode(5003,['account']);
                 break;
             }
+
+            $user = $this->DB->table('user')->where('uid','10001')->update(["hahaha" => "233"]);
+            var_dump($user);die;
             
             $user = $this
                 ->DB
