@@ -10,7 +10,7 @@ class Auth
 	public static function create($uid,$account)
 	{
         $now = strtotime(date("Y-m-d H:i:s"));
-        $future = strtotime((new \DateTime('+1 day'))->format('Y-m-d H:i:s'));
+        $future = strtotime((new \DateTime('+27 day'))->format('Y-m-d H:i:s'));
         $jti = Auth::Salt();
         $payload   = [
         	"iss"     => "buff",
