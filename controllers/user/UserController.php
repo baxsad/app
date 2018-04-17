@@ -47,9 +47,6 @@ class UserController
                 $this->responseService->withCode(5003,['account']);
                 break;
             }
-
-            $user = $this->DB->table('user')->where('uid','10001')->update(["hahaha" => "233"]);
-            var_dump($user);die;
             
             $user = $this
                 ->DB
@@ -117,7 +114,6 @@ class UserController
                 ->where('identifier',$identifier)
                 ->get()
                 ->first();
-
             if (empty($auth)) {
                 $this->responseService->withFailure();
                 $this->responseService->withCode(6001,['User Auth']);
@@ -147,16 +143,10 @@ class UserController
             if (empty($ip_address)) {
                 $ip_address = '';
             }
-            $update_token = $this
-                ->DB
-                ->table("user")
-                ->where("uid",$auth->uid)
-                ->update(["token" => $token["token"],"ip" => $ip_address]);
-            if (!$update_token) {
-                $this->responseService->withFailure();
-                $this->responseService->withCode(6002,['User -> token']);
-                break;
-            }
+            $this->DB
+                 ->table("user")
+                 ->where("uid",$auth->uid)
+                 ->update(["token" => $token["token"],"ip" => $ip_address]);
 
             $data["token"] = $token["token"];
             $data["expires"] = $token["expires"];
@@ -249,16 +239,10 @@ class UserController
             if (empty($ip_address)) {
                 $ip_address = '';
             }
-            $update_token = $this
-                ->DB
-                ->table("user")
-                ->where("uid",$user->uid)
-                ->update(["token" => $token["token"],"ip" => $ip_address]);
-            if (!$update_token) {
-                $this->responseService->withFailure();
-                $this->responseService->withCode(6002,['User -> token']);
-                break;
-            }
+            $this->DB
+                 ->table("user")
+                 ->where("uid",$user->uid)
+                 ->update(["token" => $token["token"],"ip" => $ip_address]);
             $creat_user_auth = $this
                 ->DB->table('user_auths')
                 ->insert([
@@ -266,7 +250,7 @@ class UserController
                     'identity_type' => $identity_type,
                     'identifier' => $identifier,
                     'credential' => md5($credential)
-                        ]);
+                    ]);
             if (!$creat_user_auth) {
                 $this->responseService->withFailure();
                 $this->responseService->withCode(6003,['User Auth']);
@@ -329,28 +313,16 @@ class UserController
                 $this->responseService->withCode(7003);
                 break;
             }
-            $update_user_info = $this
-                ->DB
-                ->table("user")
-                ->where("uid",$jwt_uid)
-                ->update($updates);
-            if (!$update_user_info) {
-                $this->responseService->withFailure();
-                $this->responseService->withCode(6002,['User info']);
-                break;
-            }
+            $this->DB
+                 ->table("user")
+                 ->where("uid",$jwt_uid)
+                 ->update($updates);
             if (!empty($account)) {
-                $update_user_auths = $this
-                    ->DB
-                    ->table("user_auths")
-                    ->where("uid",$jwt_uid)
-                    ->where("identity_type","account")
-                    ->update(["identifier" => $account]);
-                if (!$update_user_auths) {
-                    $this->responseService->withFailure();
-                    $this->responseService->withCode(6002,['User Auth -> identifier']);
-                    break;
-                }
+                $this->DB
+                     ->table("user_auths")
+                     ->where("uid",$jwt_uid)
+                     ->where("identity_type","account")
+                     ->update(["identifier" => $account]);
             }
             $user = $this
                 ->DB
