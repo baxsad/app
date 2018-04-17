@@ -3,7 +3,7 @@
         "slim/slim": "^3.9.2",
         "monolog/monolog": "^1.17",
         "illuminate/database": "^5.6.16",
-        "tuupola/slim-jwt-auth": "^2.4.0",
+        "tuupola/slim-jwt-auth": "^3.0",
         "crell/api-problem": "^2.0"
     },
     "autoload": {

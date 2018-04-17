@@ -37,10 +37,13 @@ return array(
     7003 => 'Member Token Invalid',
 
     /* custom error */
-    8000 => 'custom Error',
+    8000 => 'Custom Error',
 
     /* un authorized */
     9001 => 'JSON Web Token Invalid',
+
+    /* paramter md5 sign error */
+    10001 => 'API Sign Error',
 
     /* nothing */
     0 => '',

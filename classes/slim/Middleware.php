@@ -7,6 +7,7 @@ use Slim\Middleware\JwtAuthentication\RequestMethodRule;
 use Slim\Middleware\JwtAuthentication\RequestPathRule;
 use Buff\classes\services\ResponseService;
 use Buff\classes\utils\Environment;
+use Buff\classes\middlewares\PmsAuthentication;
 
 // alexberce/Slim-API
 // tuupola/slim-api-skeleton
@@ -60,7 +61,7 @@ $app->add(
         "before" => function ($request, $arguments) use ($container) {
             
         },
-        "after" => function ($request, $arguments) use ($container) {
+        "after" => function ($response, $arguments) use ($container) {
             
         },
         "error" => function (Request $request, Response $response, $arguments) {
@@ -75,3 +76,28 @@ $app->add(
 		}
     ])
 );
+
+$app->add(
+    new PmsAuthentication([
+        "header" => "X-Sign",
+        "regexp" => "/(.*)/",
+        "attribute" => "sign",
+        "before" => function ($request, $arguments) use ($container) {
+            
+        },
+        "after" => function ($response, $arguments) use ($container) {
+            
+        },
+        "error" => function (Request $request, Response $response, $arguments) {
+            $responseService = new ResponseService();
+            $responseService
+                ->withFailure()
+                ->withCode(10001);
+            
+            return $response
+                ->withStatus(200)
+                ->write($responseService->write());
+        }
+    ])
+);
+

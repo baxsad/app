@@ -11,13 +11,14 @@ class Auth
 	{
         $now = strtotime(date("Y-m-d H:i:s"));
         $future = strtotime((new \DateTime('+1 day'))->format('Y-m-d H:i:s'));
+        $jti = Auth::Salt();
         $payload   = [
         	"iss"     => "buff",
             "iat"     => $now,
             "exp"     => $future,
             "aud"     => "oye.moe",
             "sub"     => "everyone",
-            "jti"     => 'qwq',
+            "jti"     => $jti,
             "uid"     => $uid,
             "account" => $account,
         ];
