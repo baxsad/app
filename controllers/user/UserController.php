@@ -302,12 +302,12 @@ class UserController
             }
 
             $jwt = $req->getAttribute("token");
-            if (empty($jwt) || empty($jwt['uid']])) {
+            $jwt_uid = $jwt['uid'];
+            if (empty($jwt) || empty($jwt_uid)) {
                 $this->responseService->withFailure();
                 $this->responseService->withCode(7003);
                 break;
             }
-            $jwt_uid = $jwt['uid'];
             $update_user_info = $this
                 ->DB
                 ->table("user")
