@@ -27,7 +27,7 @@ return array(
 	    )
 	],
 	'pms' => [
-		'enable' => true,
+		'enable' => false,
 		'header' => 'X-Sign',
         'regexp' => '/(.*)/',
 	]
