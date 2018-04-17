@@ -19,6 +19,7 @@ EOD;
     /** BASE64
      *（世界上一成不变的东西，只有“任何事物都是在不断变化的”这条真理。） 
      */
+    public static $enablePms = false;
 	public static $pmsSecretKey = 
 <<<EOD
 -----BEGIN SECRET KEY-----

@@ -13,6 +13,11 @@ final class PmsAuthentication
 	public function __invoke($request, $response, $next)
     {
 
+    	if (!Environment::$enablePms) {
+    		$response = $next($request, $response);
+            return $response;
+    	}
+
         $params = $request->getQueryParams();
         $postParams = $request->getParsedBody();
         if ($postParams) {
