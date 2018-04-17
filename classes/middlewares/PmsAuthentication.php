@@ -14,7 +14,8 @@ final class PmsAuthentication
 	public function __invoke($request, $response, $next)
     {
         $cof = APP::$base->config->get('pms');
-    	if (!$cof['enable']) {
+        $enable = $cof['enable'];
+    	if (!$enable) {
     		$response = $next($request, $response);
             return $response;
     	}
@@ -41,11 +42,11 @@ final class PmsAuthentication
         $header = "";
         $message = "Using sign from request header";
 
-        $headers = $request->getHeader("X-Sign");
+        $headers = $request->getHeader($cof['header']);
         $header = isset($headers[0]) ? $headers[0] : "";
 
         do {
-            if (preg_match("/(.*)/", $header, $matches)) {
+            if (preg_match($cof['regexp'], $header, $matches)) {
                 $header_sign = $matches[1];
                 if ($header_sign != $sign) {
                 	break;
