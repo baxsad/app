@@ -302,6 +302,7 @@ class UserController
             }
 
             $jwt = $req->getAttribute("token");
+            var_dump($jwt);die;
             if (empty($jwt) || empty($jwt->uid)) {
                 $this->responseService->withFailure();
                 $this->responseService->withCode(7003);
