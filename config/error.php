@@ -18,18 +18,18 @@ return array(
 
     /* request error */
     5001 => 'Missing important parameters',
-    5002 => 'Request parameter [%s] must be of type: number',
-    5003 => 'Request parameter [%s] must be of type: string',
-    5004 => 'Request parameter [%s] missing or type error',
-    5005 => 'Request parameter [%s] value not allow',
-    5006 => 'Request parameter [%s] value not null',
-    5007 => 'Request parameter [%s] value verification failed',
-    5008 => 'Request parameter [%s] value data length failed',
+    5002 => 'Request parameter <%s> must be of type: number',
+    5003 => 'Request parameter <%s> must be of type: string',
+    5004 => 'Request parameter <%s> missing or type error',
+    5005 => 'Request parameter <%s> value not allow',
+    5006 => 'Request parameter <%s> value not null',
+    5007 => 'Request parameter <%s> value verification failed',
+    5008 => 'Request parameter <%s> value data length failed',
 
     /* Database error */ 
-    6001 => 'Database not found data [%s]',
-    6002 => 'Database update value [%s] failed',
-    6003 => 'Database insert value [%s] failed',
+    6001 => 'Database not found data <%s>',
+    6002 => 'Database update value <%s> failed',
+    6003 => 'Database insert value <%s> failed',
 
     /* bussiness error */
     7001 => 'Member information is private',
