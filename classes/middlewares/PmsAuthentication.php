@@ -12,7 +12,7 @@ final class PmsAuthentication
     {
 
         $params = $request->getQueryParams();
-        $bodyParams = $request->getParsedBody();
+        $postParams = $request->getParsedBody();
         if ($postParams) {
             $params = array_merge($params, (array)$postParams);
         }
