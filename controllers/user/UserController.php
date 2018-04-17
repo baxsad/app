@@ -167,8 +167,8 @@ class UserController
         $identity_type   = $req->getParam('identity_type');
         $identifier      = $req->getParam('identifier');
         $credential      = $req->getParam('credential');
-        $account         = $req->getParam('account');
-        
+        $account         = null;
+
         $start = microtime(true);
         do {
             if (empty($identity_type) || !is_string($identity_type)) {
@@ -201,7 +201,9 @@ class UserController
                 $this->responseService->withCode(5008,['identifier']);
                 break;
             }
-            if (empty($account)) {
+            if ($identity_type == 'account') {
+                $account = $identifier;
+            } else {
                 $account = "OYEid_".$identifier;
             }
             $find = $this
@@ -218,7 +220,7 @@ class UserController
             $creat_user = $this
                 ->DB
                 ->table('user')
-                ->insert(['account' => $account,'username' => $identifier]);
+                ->insert(['account' => $account,'username' => $account]);
             if (!$creat_user) {
                 $this->responseService->withFailure();
                 $this->responseService->withCode(6003,['User']);
