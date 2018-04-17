@@ -64,7 +64,7 @@ $app->add(
         "after" => function ($response, $arguments) use ($container) {
             
         },
-        "error" => function (Request $request, Response $response, $arguments) {
+        "error" => function ($response, $arguments) use ($container) {
         	$responseService = new ResponseService();
         	$responseService
         	    ->withFailure()
