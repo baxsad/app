@@ -140,11 +140,15 @@ class UserController
             $userModel = new UserModel($user);
             $data = $userModel->toArray();
             $token = Auth::create($user->uid,$user->account);
+            $ip_address = $req->getAttribute('ip_address');
+            if (empty($ip_address)) {
+                $ip_address = '';
+            }
             $update_token = $this
                 ->DB
                 ->table("user")
                 ->where("uid",$auth->uid)
-                ->update(["token" => $token["token"]]);
+                ->update(["token" => $token["token"],"ip" => $ip_address]);
             if (!$update_token) {
                 $this->responseService->withFailure();
                 $this->responseService->withCode(6002,['User -> token']);
@@ -236,6 +240,20 @@ class UserController
             if (empty($user)) {
                 $this->responseService->withFailure();
                 $this->responseService->withCode(6001,['User']);
+                break;
+            }
+            $ip_address = $req->getAttribute('ip_address');
+            if (empty($ip_address)) {
+                $ip_address = '';
+            }
+            $update_token = $this
+                ->DB
+                ->table("user")
+                ->where("uid",$user->uid)
+                ->update(["token" => $token["token"],"ip" => $ip_address]);
+            if (!$update_token) {
+                $this->responseService->withFailure();
+                $this->responseService->withCode(6002,['User -> token']);
                 break;
             }
             $creat_user_auth = $this

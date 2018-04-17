@@ -14,6 +14,7 @@ class UserModel extends ResponseModel implements ResponseModelInterface
 	private $username;
 	private $avatar;
 	private $bio;
+	private $ip;
 	private $private;
 	private $created;
 	private $modify;
@@ -26,6 +27,7 @@ class UserModel extends ResponseModel implements ResponseModelInterface
 		$this->username   = (string) $dao->username;
 		$this->avatar     = (string) $dao->avatar;
 		$this->bio        = (string) $dao->bio;
+		$this->ip         = (string) $dao->ip;
 		$this->private    = (bool)   $dao->private;
 		$this->created    = (int)    strtotime($dao->created);
 		$this->modify     = (int)    strtotime($dao->modify);
@@ -59,6 +61,11 @@ class UserModel extends ResponseModel implements ResponseModelInterface
 	public function getBio(): string
 	{
 		return $this->bio;
+	}
+
+	public function getIP(): string
+	{
+		return $this->ip;
 	}
 
 	public function getPrivate(): bool

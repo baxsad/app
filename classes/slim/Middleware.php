@@ -8,6 +8,7 @@ use Tuupola\Middleware\JwtAuthentication\RequestPathRule;
 use Buff\classes\services\ResponseService;
 use Buff\classes\utils\Environment;
 use Buff\classes\middlewares\PmsAuthentication;
+use Buff\classes\middlewares\UsrIPAddress;
 
 // alexberce/Slim-API
 // tuupola/slim-api-skeleton
@@ -30,7 +31,15 @@ $app->add(function ($req, $res, $next) {
 		->withHeader('Allow', 'GET, POST, PUT, DELETE, OPTIONS')
 		->withHeader('Content-Type', 'application/json; charset=UTF-8');
 });
-
+/**
+ * Slim UsrIPAddress
+ */
+$app->add(
+    new UsrIPAddress(true,['10.0.0.1', '10.0.0.2'])
+);
+/**
+ * Slim JwtAuthentication
+ */
 $app->add(
 	new JwtAuthentication([
 		"secure" => false,
@@ -59,7 +68,7 @@ $app->add(
             ])
         ],
         "before" => function ($request, $arguments) use ($container) {
-            
+
         },
         "after" => function ($response, $arguments) use ($container) {
             
@@ -76,8 +85,9 @@ $app->add(
 		}
     ])
 );
-
+/**
+ * Slim PmsAuthentication
+ */
 $app->add(
     new PmsAuthentication()
 );
-
