@@ -17,7 +17,7 @@ class HomeController
    public function home(Request $req,  Response $res, $args = []) {
         return $res
             ->withStatus(200)
-            ->withHeader('Content-Type','application/json')
-            ->write('Hello Oye！');
+            ->withHeader('Content-Type',' text/html')
+            ->write('<h1>洪雅双，大傻逼！</h1>');
    }
 }
