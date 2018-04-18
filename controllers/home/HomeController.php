@@ -18,6 +18,6 @@ class HomeController
         return $res
             ->withStatus(200)
             ->withHeader('Content-Type',' text/html')
-            ->write('<h1>洪雅双，大傻逼！</h1>');
+            ->write('洪雅双，大傻逼! heiheiehi～');
    }
 }
